@@ -60,8 +60,8 @@ export default class CreateTableChats1602933884472
     await queryRunner.createForeignKey(
       'chats',
       new TableForeignKey({
-        name: 'pk_delivery_id',
-        columnNames: ['delivery_id'],
+        name: 'pk_deliveryman_id',
+        columnNames: ['deliveryman_id'],
         referencedColumnNames: ['id'],
         referencedTableName: 'users',
         onDelete: 'CASCADE',
