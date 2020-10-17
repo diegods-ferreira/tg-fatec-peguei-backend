@@ -1,5 +1,8 @@
 import { RedisOptions } from 'ioredis';
 
+/**
+ * This will save the cache driver configuration
+ */
 interface ICacheConfig {
   driver: 'redis';
 

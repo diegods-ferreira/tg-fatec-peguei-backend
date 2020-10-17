@@ -1,3 +1,6 @@
+/**
+ * This will save the mail driver configuration
+ */
 interface IMailConfig {
   driver: 'ethereal' | 'ses';
   defaults: {
