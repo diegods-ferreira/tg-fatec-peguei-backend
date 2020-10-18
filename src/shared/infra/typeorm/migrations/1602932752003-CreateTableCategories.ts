@@ -18,6 +18,10 @@ export default class CreateTableCategories1602932752003
             name: 'name',
             type: 'varchar',
           },
+          {
+            name: 'icon',
+            type: 'varchar',
+          },
         ],
       }),
     );
