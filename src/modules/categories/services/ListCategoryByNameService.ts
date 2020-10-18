@@ -15,7 +15,7 @@ class ListCategoryByNameService {
 
   public async execute({
     category_name,
-  }: IRequest): Promise<Category | undefined> {
+  }: IRequest): Promise<Category[] | undefined> {
     const category = await this.categoriesRepository.findByName(category_name);
 
     return category;
