@@ -26,6 +26,10 @@ export default class CreateTableUnitsMeasure1602932943633
             name: 'type',
             type: 'integer',
           },
+          {
+            name: 'type_description',
+            type: 'varchar',
+          },
         ],
       }),
     );
