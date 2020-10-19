@@ -40,28 +40,33 @@ export default class CreateTableItems1602933280236
             type: 'decimal',
             scale: 2,
             precision: 10,
+            isNullable: true,
           },
           {
             name: 'width',
             type: 'decimal',
             scale: 2,
             precision: 10,
+            isNullable: true,
           },
           {
             name: 'height',
             type: 'decimal',
             scale: 2,
             precision: 10,
+            isNullable: true,
           },
           {
             name: 'depth',
             type: 'decimal',
             scale: 2,
             precision: 10,
+            isNullable: true,
           },
           {
             name: 'packing',
             type: 'varchar',
+            isNullable: true,
           },
           {
             name: 'category_id',
