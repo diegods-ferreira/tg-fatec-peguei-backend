@@ -16,11 +16,11 @@ class CategoriesRepository implements ICategoriesReposoty {
   }
 
   public async findByName(name: string): Promise<Category[] | undefined> {
-    const category = await this.ormRepository.find({
+    const categories = await this.ormRepository.find({
       where: { name: Like(`%${name}%`) },
     });
 
-    return category;
+    return categories;
   }
 }
 
