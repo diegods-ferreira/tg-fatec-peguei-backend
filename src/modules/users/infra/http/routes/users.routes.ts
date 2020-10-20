@@ -19,9 +19,10 @@ usersRouter.post(
   celebrate({
     [Segments.BODY]: {
       name: Joi.string().required(),
-      username: Joi.string().required(),
+      username: Joi.string().required().min(5).max(15),
       email: Joi.string().email().required(),
-      password: Joi.string().required(),
+      password: Joi.string().required().min(6),
+      password_confirmation: Joi.string().valid(Joi.ref('password')),
     },
   }),
   usersController.create,
