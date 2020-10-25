@@ -1,5 +1,5 @@
 import IUnitsMeasureRepository from '@modules/units_measure/repositories/IUnitsMeasureRepository';
-import { getRepository, Like, Repository } from 'typeorm';
+import { getRepository, Repository } from 'typeorm';
 import UnitMeasure from '../entities/UnitMeasure';
 
 class UnitsMeasureRepository implements IUnitsMeasureRepository {
@@ -18,8 +18,12 @@ class UnitsMeasureRepository implements IUnitsMeasureRepository {
   public async findByDescription(
     description: string,
   ): Promise<UnitMeasure[] | undefined> {
+    // const unitsMeasure = await this.ormRepository.find({
+    //   where: { description: Like(`%${description}%`) },
+    // });
+
     const unitsMeasure = await this.ormRepository.find({
-      where: { description: Like(`%${description}%`) },
+      where: `UNACCENT(description) ILIKE UNACCENT('%${description}%')`,
     });
 
     return unitsMeasure;

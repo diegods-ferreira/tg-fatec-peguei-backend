@@ -17,14 +17,14 @@ export default class UnitsMeasureController {
     request: Request,
     response: Response,
   ): Promise<Response> {
-    const { unit_measure_description } = request.params;
+    const { unit_measure_description } = request.query;
 
     const listUnitsMeasureByDescription = container.resolve(
       ListUnitsMeasureByDescriptionService,
     );
 
     const unitsMeasure = await listUnitsMeasureByDescription.execute({
-      unit_measure_description,
+      unit_measure_description: String(unit_measure_description),
     });
 
     return response.json(unitsMeasure);

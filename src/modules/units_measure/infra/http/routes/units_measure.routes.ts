@@ -10,15 +10,7 @@ unitsMeasureRouter.use(ensureAuthenticated);
 
 unitsMeasureRouter.get('/', unitsMeasureController.index);
 
-unitsMeasureRouter.get(
-  '/description/:unit_measure_description',
-  celebrate({
-    [Segments.PARAMS]: {
-      unit_measure_description: Joi.string().required(),
-    },
-  }),
-  unitsMeasureController.showByDescription,
-);
+unitsMeasureRouter.get('/search', unitsMeasureController.showByDescription);
 
 unitsMeasureRouter.get(
   '/type/:unit_measure_type',

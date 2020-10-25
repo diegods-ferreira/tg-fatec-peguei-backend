@@ -17,7 +17,7 @@ class CategoriesRepository implements ICategoriesReposoty {
 
   public async findByName(name: string): Promise<Category[] | undefined> {
     const categories = await this.ormRepository.find({
-      where: `LOWER(name) LIKE LOWER('%${name}%')`,
+      where: `UNACCENT(name) ILIKE UNACCENT('%${name}%')`,
     });
 
     return categories;
