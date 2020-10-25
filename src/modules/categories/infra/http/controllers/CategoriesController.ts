@@ -13,11 +13,13 @@ export default class CategoriesController {
   }
 
   public async show(request: Request, response: Response): Promise<Response> {
-    const { category_name } = request.params;
+    const { category_name } = request.query;
 
     const listCategoryByName = container.resolve(ListCategoryByNameService);
 
-    const category = await listCategoryByName.execute({ category_name });
+    const category = await listCategoryByName.execute({
+      category_name: String(category_name),
+    });
 
     return response.json(category);
   }

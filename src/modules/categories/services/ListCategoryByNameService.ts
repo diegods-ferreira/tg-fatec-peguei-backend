@@ -1,3 +1,4 @@
+import AppError from '@shared/errors/AppError';
 import { inject, injectable } from 'tsyringe';
 import Category from '../infra/typeorm/entities/Category';
 import ICategoriesRepository from '../repositories/ICategoriesRepository';
@@ -16,6 +17,10 @@ class ListCategoryByNameService {
   public async execute({
     category_name,
   }: IRequest): Promise<Category[] | undefined> {
+    if (!category_name) {
+      throw new AppError('You must inform the category_name query param');
+    }
+
     const category = await this.categoriesRepository.findByName(category_name);
 
     return category;
