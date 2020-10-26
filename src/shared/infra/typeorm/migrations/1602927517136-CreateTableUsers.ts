@@ -73,22 +73,22 @@ export default class CreateTableUsers1602927517136
           {
             name: 'show_email',
             type: 'boolean',
-            default: true,
+            default: false,
           },
           {
             name: 'show_facebook',
             type: 'boolean',
-            default: true,
+            default: false,
           },
           {
             name: 'show_instagram',
             type: 'boolean',
-            default: true,
+            default: false,
           },
           {
             name: 'show_phone',
             type: 'boolean',
-            default: true,
+            default: false,
           },
           {
             name: 'created_at',
