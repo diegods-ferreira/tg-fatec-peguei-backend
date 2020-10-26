@@ -32,6 +32,18 @@ export default class CreateTableTrips1602931427813
             type: 'varchar',
           },
           {
+            name: 'destination_latitude',
+            type: 'decimal',
+            scale: 7,
+            precision: 10,
+          },
+          {
+            name: 'destination_longitude',
+            type: 'decimal',
+            scale: 7,
+            precision: 10,
+          },
+          {
             name: 'exit_date',
             type: 'timestamp',
           },

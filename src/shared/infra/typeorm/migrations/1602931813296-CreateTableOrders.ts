@@ -50,6 +50,18 @@ export default class CreateTableOrders1602931813296
             type: 'varchar',
           },
           {
+            name: 'pickup_latitude',
+            type: 'decimal',
+            scale: 7,
+            precision: 10,
+          },
+          {
+            name: 'pickup_longitude',
+            type: 'decimal',
+            scale: 7,
+            precision: 10,
+          },
+          {
             name: 'delivery_address',
             type: 'varchar',
           },
@@ -65,6 +77,18 @@ export default class CreateTableOrders1602931813296
             name: 'delivery_value',
             type: 'decimal',
             scale: 2,
+            precision: 10,
+          },
+          {
+            name: 'delivery_latitude',
+            type: 'decimal',
+            scale: 7,
+            precision: 10,
+          },
+          {
+            name: 'delivery_longitude',
+            type: 'decimal',
+            scale: 7,
             precision: 10,
           },
           {
