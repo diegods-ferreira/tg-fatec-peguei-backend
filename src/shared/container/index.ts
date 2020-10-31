@@ -15,6 +15,9 @@ import CategoriesRepository from '@modules/categories/infra/typeorm/repositories
 import IUnitsMeasureRepository from '@modules/units_measure/repositories/IUnitsMeasureRepository';
 import UnitsMeasureRepository from '@modules/units_measure/infra/typeorm/repositories/UnitsMeasureRepository';
 
+import IOrdersRepository from '@modules/orders/repositories/IOrdersRepository';
+import OrdersRepository from '@modules/orders/infra/typeorm/repositories/OrdersRepository';
+
 container.registerSingleton<IUsersRepository>(
   'UsersRepository',
   UsersRepository,
@@ -33,4 +36,9 @@ container.registerSingleton<ICategoriesRepository>(
 container.registerSingleton<IUnitsMeasureRepository>(
   'UnitsMeasureRepository',
   UnitsMeasureRepository,
+);
+
+container.registerSingleton<IOrdersRepository>(
+  'OrdersRepository',
+  OrdersRepository,
 );

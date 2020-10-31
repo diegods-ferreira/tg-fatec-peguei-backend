@@ -4,9 +4,11 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
 } from 'typeorm';
 import uploadConfig from '@config/upload';
 import { Exclude, Expose } from 'class-transformer';
+import Order from '@modules/orders/infra/typeorm/entities/Order';
 
 @Entity('users')
 class User {
@@ -61,6 +63,16 @@ class User {
 
   @Column()
   show_phone: boolean;
+
+  @OneToMany(() => Order, order => order.requester, {
+    cascade: true,
+  })
+  orders_as_requester: Order[];
+
+  @OneToMany(() => Order, order => order.deliveryman, {
+    cascade: true,
+  })
+  orders_as_deliveryman: Order[];
 
   @CreateDateColumn()
   created_at: Date;
