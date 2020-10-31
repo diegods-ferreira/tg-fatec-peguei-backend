@@ -78,6 +78,7 @@ export default class CreateTableOrders1602931813296
             type: 'decimal',
             scale: 2,
             precision: 10,
+            isNullable: true,
           },
           {
             name: 'delivery_latitude',
@@ -94,6 +95,7 @@ export default class CreateTableOrders1602931813296
           {
             name: 'purchase_invoice',
             type: 'varchar',
+            isNullable: true,
           },
           {
             name: 'trip_id',
