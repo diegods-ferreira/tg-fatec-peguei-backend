@@ -23,7 +23,7 @@ class OrdersRepository implements IOrdersRepository {
         where: {
           id: Not(except_user_id),
         },
-        // relations: ['items'],
+        relations: ['items'],
       });
     } else {
       orders = await this.ormRepository.find({ relations: ['items'] });

@@ -52,14 +52,18 @@ class Item {
   @Column('int')
   category_id: number;
 
-  @ManyToOne(() => Category, category => category.items)
+  @ManyToOne(() => Category, category => category.items, { eager: true })
   @JoinColumn({ name: 'category_id' })
   category: Category;
 
   @Column('int')
   weight_unit_id: number;
 
-  @ManyToOne(() => UnitMeasure, unitMeasure => unitMeasure.items_weight_measure)
+  @ManyToOne(
+    () => UnitMeasure,
+    unitMeasure => unitMeasure.items_weight_measure,
+    { eager: true },
+  )
   @JoinColumn({ name: 'weight_unit_id' })
   weight_unit_measure: UnitMeasure;
 
@@ -69,6 +73,7 @@ class Item {
   @ManyToOne(
     () => UnitMeasure,
     unitMeasure => unitMeasure.items_dimension_measure,
+    { eager: true },
   )
   @JoinColumn({ name: 'dimension_unit_id' })
   dimension_unit_measure: UnitMeasure;

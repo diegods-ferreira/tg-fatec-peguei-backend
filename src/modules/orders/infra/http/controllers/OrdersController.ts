@@ -99,7 +99,7 @@ export default class OrdersController {
 
   public async index(request: Request, response: Response): Promise<Response> {
     const user_id = request.user.id;
-    const { user_latitude, user_longitude, distance } = request.params;
+    const { user_latitude, user_longitude, distance } = request.query;
 
     const listOrdersNearUser = container.resolve(ListOrdersNearUserService);
 

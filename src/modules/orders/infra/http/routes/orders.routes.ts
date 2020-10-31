@@ -15,7 +15,7 @@ ordersRouter.use(ensureAuthenticated);
 ordersRouter.get(
   '/',
   celebrate({
-    [Segments.BODY]: {
+    [Segments.QUERY]: {
       user_latitude: Joi.number().required(),
       user_longitude: Joi.number().required(),
       distance: Joi.number().required(),
