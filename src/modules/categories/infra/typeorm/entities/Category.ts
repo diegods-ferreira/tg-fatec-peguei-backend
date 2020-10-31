@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import Item from '@modules/orders/infra/typeorm/entities/Item';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('categories')
 class Category {
@@ -10,6 +11,11 @@ class Category {
 
   @Column()
   icon: string;
+
+  @OneToMany(() => Item, item => item.category, {
+    cascade: true,
+  })
+  items: Item[];
 }
 
 export default Category;
