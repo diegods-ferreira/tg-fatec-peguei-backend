@@ -30,6 +30,7 @@ export default class CreateTableItems1602933280236
           {
             name: 'image',
             type: 'varchar',
+            isNullable: true,
           },
           {
             name: 'quantity',
