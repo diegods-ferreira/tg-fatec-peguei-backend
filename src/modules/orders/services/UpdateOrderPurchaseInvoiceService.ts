@@ -8,6 +8,7 @@ import IOrdersRepository from '../repositories/IOrdersRepository';
 interface IRequest {
   order_id: string;
   purchase_invoice: string;
+  user_id: string;
 }
 
 @injectable()
@@ -26,6 +27,7 @@ class UpdateOrderPurchaseInvoiceService {
   public async execute({
     order_id,
     purchase_invoice,
+    user_id,
   }: IRequest): Promise<Order> {
     const order = await this.ordersRepository.findById(order_id);
 
@@ -43,7 +45,7 @@ class UpdateOrderPurchaseInvoiceService {
 
     await this.ordersRepository.save(order);
 
-    await this.cacheProvider.invalidatePrefix('@Peguei!:orders-list');
+    await this.cacheProvider.invalidate(`@Peguei!:user-orders-list:${user_id}`);
 
     return order;
   }

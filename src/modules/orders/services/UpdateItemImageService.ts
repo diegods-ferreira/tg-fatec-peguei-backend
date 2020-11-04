@@ -8,6 +8,7 @@ import Item from '../infra/typeorm/entities/Item';
 interface IRequest {
   item_id: string;
   image: string;
+  user_id: string;
 }
 
 @injectable()
@@ -20,7 +21,7 @@ class UpdateItemImageService {
     private cacheProvider: ICacheProvider,
   ) {}
 
-  public async execute({ item_id, image }: IRequest): Promise<Item> {
+  public async execute({ item_id, image, user_id }: IRequest): Promise<Item> {
     const itemsRepository = getRepository(Item);
     const item = await itemsRepository.findOne(item_id);
 
@@ -38,7 +39,7 @@ class UpdateItemImageService {
 
     await itemsRepository.save(item);
 
-    await this.cacheProvider.invalidatePrefix('@Peguei!:orders-list');
+    await this.cacheProvider.invalidate(`@Peguei!:user-orders-list:${user_id}`);
 
     return item;
   }

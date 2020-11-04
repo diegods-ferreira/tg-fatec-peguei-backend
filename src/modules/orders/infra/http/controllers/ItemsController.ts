@@ -1,9 +1,11 @@
 import UpdateItemService from '@modules/orders/services/UpdateItemService';
 import { classToClass } from 'class-transformer';
 import { Request, Response } from 'express';
+import { container } from 'tsyringe';
 
 export default class ItemsController {
   public async update(request: Request, response: Response): Promise<Response> {
+    const user_id = request.user.id;
     const {
       id,
       name,
@@ -19,7 +21,7 @@ export default class ItemsController {
       description,
     } = request.body;
 
-    const updateItem = new UpdateItemService();
+    const updateItem = container.resolve(UpdateItemService);
 
     const item = await updateItem.execute({
       id,
@@ -34,6 +36,7 @@ export default class ItemsController {
       weight_unit_id,
       dimension_unit_id,
       description,
+      user_id,
     });
 
     return response.json(classToClass(item));

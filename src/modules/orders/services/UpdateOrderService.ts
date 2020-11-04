@@ -80,7 +80,9 @@ class UpdateOrderService {
 
     await this.ordersRepository.save(order);
 
-    await this.cacheProvider.invalidatePrefix('@Peguei!:orders-list');
+    await this.cacheProvider.invalidate(
+      `@Peguei!:user-orders-list:${requester_id}`,
+    );
 
     return order;
   }

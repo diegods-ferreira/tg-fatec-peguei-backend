@@ -1,4 +1,6 @@
+import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 import AppError from '@shared/errors/AppError';
+import { inject, injectable } from 'tsyringe';
 import { getRepository } from 'typeorm';
 import Item from '../infra/typeorm/entities/Item';
 
@@ -15,9 +17,16 @@ interface IRequest {
   weight_unit_id: number;
   dimension_unit_id: number;
   description: string;
+  user_id: string;
 }
 
+@injectable()
 class UpdateItemService {
+  constructor(
+    @inject('CacheProvider')
+    private cacheProvider: ICacheProvider,
+  ) {}
+
   public async execute({
     id,
     name,
@@ -31,6 +40,7 @@ class UpdateItemService {
     weight_unit_id,
     dimension_unit_id,
     description,
+    user_id,
   }: IRequest): Promise<Item> {
     const itemsRepository = getRepository(Item);
 
@@ -53,6 +63,8 @@ class UpdateItemService {
       dimension_unit_id,
       description,
     });
+
+    await this.cacheProvider.invalidate(`@Peguei!:user-orders-list:${user_id}`);
 
     return itemsRepository.save(item);
   }

@@ -12,6 +12,7 @@ export default class OrderPurchaseInvoiceController {
     const order = await updateOrderPurchaseInvoice.execute({
       order_id: request.body.order_id,
       purchase_invoice: request.file.filename,
+      user_id: request.user.id,
     });
 
     return response.json(classToClass(order));
