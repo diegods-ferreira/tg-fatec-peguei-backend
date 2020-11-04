@@ -4,9 +4,11 @@ import { Router } from 'express';
 import uploadConfig from '@config/upload';
 import multer from 'multer';
 import ItemsController from '../controllers/ItemsController';
+import ItemImageController from '../controllers/ItemImageController';
 
 const itemsRouter = Router();
 const itemsControler = new ItemsController();
+const itemImageController = new ItemImageController();
 const upload = multer(uploadConfig.multer);
 
 itemsRouter.use(ensureAuthenticated);
@@ -32,6 +34,6 @@ itemsRouter.put(
   itemsControler.update,
 );
 
-itemsRouter.patch('/image', upload.single('image'), itemsControler.uploadImage);
+itemsRouter.patch('/image', upload.single('image'), itemImageController.update);
 
 export default itemsRouter;
