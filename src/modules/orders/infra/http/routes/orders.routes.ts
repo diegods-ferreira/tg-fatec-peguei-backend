@@ -4,9 +4,13 @@ import { Router } from 'express';
 import multer from 'multer';
 import uploadConfig from '@config/upload';
 import OrdersController from '../controllers/OrdersController';
+import OrderPurchaseInvoiceController from '../controllers/OrderPurchaseInvoiceController';
+import UserOrdersController from '../controllers/UserOrdersController';
 
 const ordersRouter = Router();
-const ordersControler = new OrdersController();
+const ordersController = new OrdersController();
+const orderPurchaseInvoiceController = new OrderPurchaseInvoiceController();
+const userOrdersController = new UserOrdersController();
 
 const upload = multer(uploadConfig.multer);
 
@@ -21,7 +25,7 @@ ordersRouter.get(
       distance: Joi.number().required(),
     },
   }),
-  ordersControler.index,
+  ordersController.index,
 );
 
 ordersRouter.get(
@@ -31,10 +35,20 @@ ordersRouter.get(
       order_id: Joi.string().required(),
     },
   }),
-  ordersControler.show,
+  ordersController.show,
 );
 
-// ordersRouter.get('/search', ordersControler.showByKeys);
+ordersRouter.get(
+  '/me/:status',
+  celebrate({
+    [Segments.PARAMS]: {
+      status: Joi.number().required(),
+    },
+  }),
+  userOrdersController.index,
+);
+
+// ordersRouter.get('/search', ordersController.showByKeys);
 
 ordersRouter.post(
   '/',
@@ -74,7 +88,7 @@ ordersRouter.post(
         .required(),
     },
   }),
-  ordersControler.create,
+  ordersController.create,
 );
 
 ordersRouter.put(
@@ -99,13 +113,13 @@ ordersRouter.put(
       trip_id: Joi.string().optional(),
     },
   }),
-  ordersControler.update,
+  ordersController.update,
 );
 
 ordersRouter.patch(
   '/purchase_invoice',
   upload.single('purchase_invoice'),
-  ordersControler.uploadPurchaseInvoice,
+  orderPurchaseInvoiceController.update,
 );
 
 export default ordersRouter;

@@ -4,7 +4,6 @@ import CreateOrderService from '@modules/orders/services/CreateOrderService';
 import UpdateOrderService from '@modules/orders/services/UpdateOrderService';
 import ListOrdersNearUserService from '@modules/orders/services/ListOrdersNearUserService';
 import ShowOrderDetailsService from '@modules/orders/services/ShowOrderDetailsService';
-import UpdateOrderPurchaseInvoiceService from '@modules/orders/services/UpdateOrderPurchaseInvoiceService';
 import { classToClass } from 'class-transformer';
 // import ListOrdersByKeysService from '@modules/orders/services/ListOrdersByKeysService';
 
@@ -119,22 +118,6 @@ export default class OrdersController {
     const showOrderDetails = container.resolve(ShowOrderDetailsService);
 
     const order = await showOrderDetails.execute({ order_id });
-
-    return response.json(classToClass(order));
-  }
-
-  public async uploadPurchaseInvoice(
-    request: Request,
-    response: Response,
-  ): Promise<Response> {
-    const updateOrderPurchaseInvoice = container.resolve(
-      UpdateOrderPurchaseInvoiceService,
-    );
-
-    const order = await updateOrderPurchaseInvoice.execute({
-      order_id: request.body.order_id,
-      purchase_invoice: request.file.filename,
-    });
 
     return response.json(classToClass(order));
   }

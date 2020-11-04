@@ -36,4 +36,10 @@ export default interface IOrdersRepository {
    * @param order_id order id
    */
   findById(order_id: string): Promise<Order | undefined>;
+
+  /**
+   * Finds the orders of an specific user
+   * @param user_id requester id
+   */
+  findByUserId(user_id: string, status: number): Promise<Order[]>;
 }

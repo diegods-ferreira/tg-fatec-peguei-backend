@@ -28,9 +28,11 @@ class ListOrdersNearUserService {
     user_longitude,
     distance,
   }: IRequest): Promise<Order[]> {
-    let orders = await this.cacheProvider.recover<Order[]>(
-      `@Peguei!:orders-list:${user_id}`,
-    );
+    // let orders = await this.cacheProvider.recover<Order[]>(
+    //   `@Peguei!:orders-list:${user_id}`,
+    // );
+
+    let orders;
 
     if (!orders) {
       orders = await this.ordersRepository.findAllOrders({
@@ -55,10 +57,10 @@ class ListOrdersNearUserService {
       );
     });
 
-    await this.cacheProvider.save(
-      `@Peguei!:orders-list:${user_id}`,
-      classToClass(filteredOrdersByDistance),
-    );
+    // await this.cacheProvider.save(
+    //   `@Peguei!:orders-list:${user_id}`,
+    //   classToClass(filteredOrdersByDistance),
+    // );
 
     return filteredOrdersByDistance;
   }

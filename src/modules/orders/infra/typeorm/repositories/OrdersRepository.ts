@@ -50,6 +50,20 @@ class OrdersRepository implements IOrdersRepository {
     return order;
   }
 
+  public async findByUserId(user_id: string, status: number): Promise<Order[]> {
+    // const orders = await this.ormRepository.find({
+    //   where: { requester_id: user_id },
+    //   relations: ['items'],
+    // });
+
+    const orders = await this.ormRepository.find({
+      where: { requester_id: user_id, status },
+      relations: ['items'],
+    });
+
+    return orders;
+  }
+
   public async create(orderData: ICreateOrderDTO): Promise<Order> {
     const order = this.ormRepository.create(orderData);
 
