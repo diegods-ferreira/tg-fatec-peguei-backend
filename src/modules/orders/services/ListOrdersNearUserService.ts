@@ -1,4 +1,4 @@
-import { convertDistance, getPreciseDistance } from 'geolib';
+import { getPreciseDistance } from 'geolib';
 import { inject, injectable } from 'tsyringe';
 import Order from '../infra/typeorm/entities/Order';
 import IOrdersRepository from '../repositories/IOrdersRepository';
