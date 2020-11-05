@@ -1,7 +1,8 @@
-import { getPreciseDistance } from 'geolib';
+import { convertDistance, getPreciseDistance } from 'geolib';
 import { inject, injectable } from 'tsyringe';
 import Order from '../infra/typeorm/entities/Order';
 import IOrdersRepository from '../repositories/IOrdersRepository';
+import sortOrdersByDistance from '../utils/sortOrdersByDistance';
 
 interface IRequest {
   user_id?: string;
@@ -26,7 +27,6 @@ class ListOrdersNearUserService {
     const orders = await this.ordersRepository.findAllOrders({
       except_user_id: user_id,
     });
-
     const distanceInMeters = distance * 1000;
 
     const filteredOrdersByDistance = orders.filter(order => {
@@ -37,14 +37,19 @@ class ListOrdersNearUserService {
             longitude: user_longitude,
           },
           {
-            latitude: order.delivery_latitude,
-            longitude: order.delivery_longitude,
+            latitude: order.pickup_latitude,
+            longitude: order.pickup_longitude,
           },
         ) <= distanceInMeters
       );
     });
 
-    return filteredOrdersByDistance;
+    const sortedOrders = await sortOrdersByDistance(filteredOrdersByDistance, {
+      latitude: user_latitude,
+      longitude: user_longitude,
+    });
+
+    return sortedOrders;
   }
 }
 
