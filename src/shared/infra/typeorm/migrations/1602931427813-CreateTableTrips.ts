@@ -24,7 +24,7 @@ export default class CreateTableTrips1602931427813
             type: 'uuid',
           },
           {
-            name: 'exit_place',
+            name: 'destination',
             type: 'varchar',
           },
           {
