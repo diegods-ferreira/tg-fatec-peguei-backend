@@ -44,7 +44,7 @@ export default class CreateTableTrips1602931427813
             precision: 10,
           },
           {
-            name: 'exit_date',
+            name: 'departure_date',
             type: 'timestamp',
           },
           {
