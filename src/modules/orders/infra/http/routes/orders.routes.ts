@@ -55,7 +55,6 @@ ordersRouter.post(
   celebrate({
     [Segments.BODY]: {
       deliveryman_id: Joi.string().optional(),
-      requester_id: Joi.string().required(),
       pickup_date: Joi.date().required(),
       pickup_establishment: Joi.string().required(),
       pickup_address: Joi.string().required(),

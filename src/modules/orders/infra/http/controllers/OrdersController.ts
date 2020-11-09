@@ -9,9 +9,9 @@ import { classToClass } from 'class-transformer';
 
 export default class OrdersController {
   public async create(request: Request, response: Response): Promise<Response> {
+    const user_id = request.user.id;
     const {
       deliveryman_id,
-      requester_id,
       pickup_date,
       pickup_establishment,
       pickup_address,
@@ -32,7 +32,7 @@ export default class OrdersController {
 
     const order = await createOrder.execute({
       deliveryman_id,
-      requester_id,
+      requester_id: user_id,
       pickup_date,
       pickup_establishment,
       pickup_address,
