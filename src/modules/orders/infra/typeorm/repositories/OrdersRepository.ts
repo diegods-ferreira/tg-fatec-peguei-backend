@@ -21,7 +21,7 @@ class OrdersRepository implements IOrdersRepository {
     if (except_user_id) {
       orders = await this.ormRepository.find({
         where: {
-          id: Not(except_user_id),
+          requester_id: Not(except_user_id),
         },
         relations: ['items'],
       });
