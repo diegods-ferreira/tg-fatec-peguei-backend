@@ -9,6 +9,7 @@ import {
 import uploadConfig from '@config/upload';
 import { Exclude, Expose } from 'class-transformer';
 import Order from '@modules/orders/infra/typeorm/entities/Order';
+import Trip from '@modules/trips/infra/typeorm/entities/Trip';
 
 @Entity('users')
 class User {
@@ -73,6 +74,11 @@ class User {
     cascade: true,
   })
   orders_as_deliveryman: Order[];
+
+  @OneToMany(() => Trip, trip => trip.user, {
+    cascade: true,
+  })
+  trips: Trip[];
 
   @CreateDateColumn()
   created_at: Date;

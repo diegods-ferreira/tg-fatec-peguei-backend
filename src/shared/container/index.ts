@@ -18,6 +18,9 @@ import UnitsMeasureRepository from '@modules/units_measure/infra/typeorm/reposit
 import IOrdersRepository from '@modules/orders/repositories/IOrdersRepository';
 import OrdersRepository from '@modules/orders/infra/typeorm/repositories/OrdersRepository';
 
+import ITripsRepository from '@modules/trips/repositories/ITripsRepository';
+import TripsRepository from '@modules/trips/infra/typeorm/repositories/TripsRepository';
+
 container.registerSingleton<IUsersRepository>(
   'UsersRepository',
   UsersRepository,
@@ -41,4 +44,9 @@ container.registerSingleton<IUnitsMeasureRepository>(
 container.registerSingleton<IOrdersRepository>(
   'OrdersRepository',
   OrdersRepository,
+);
+
+container.registerSingleton<ITripsRepository>(
+  'TripsRepository',
+  TripsRepository,
 );

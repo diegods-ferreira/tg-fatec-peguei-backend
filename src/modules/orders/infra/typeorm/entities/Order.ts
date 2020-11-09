@@ -11,6 +11,7 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
+import Trip from '@modules/trips/infra/typeorm/entities/Trip';
 import Item from './Item';
 
 @Entity('orders')
@@ -80,16 +81,20 @@ class Order {
   @Column('int')
   status: number;
 
-  @OneToMany(() => Item, item => item.order, {
-    cascade: true,
-  })
-  items: Item[];
-
   @CreateDateColumn()
   created_at: Date;
 
   @UpdateDateColumn()
   updated_at: Date;
+
+  @OneToMany(() => Item, item => item.order, {
+    cascade: true,
+  })
+  items: Item[];
+
+  @ManyToOne(() => Trip, trip => trip.orders, { eager: true })
+  @JoinColumn({ name: 'trip_id' })
+  trip: Trip[];
 
   @Expose({ name: 'purchase_invoice_url' })
   getAvatarUrl(): string | null {
