@@ -18,7 +18,7 @@ profileRouter.put(
       name: Joi.string().required(),
       username: Joi.string().required(),
       email: Joi.string().email().required(),
-      presentation: Joi.string().required(),
+      presentation: Joi.string().allow(null, ''),
       address: Joi.string().required(),
       city: Joi.string().required(),
       state: Joi.string().required(),
