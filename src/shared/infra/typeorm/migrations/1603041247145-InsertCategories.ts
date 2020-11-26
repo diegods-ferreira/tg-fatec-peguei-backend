@@ -10,47 +10,47 @@ export default class InsertCategories1603041247145
       .values([
         {
           name: 'Livros',
-          icon: 'fa-book',
+          icon: 'book',
         },
         {
           name: 'Eletrodomésticos e Casa',
-          icon: 'fa-blender-phone',
+          icon: 'blender-phone',
         },
         {
           name: 'Games e PC Gamer',
-          icon: 'fa-gamepad',
+          icon: 'gamepad',
         },
         {
           name: 'Celulares',
-          icon: 'fa-mobile-alt',
+          icon: 'mobile-alt',
         },
         {
           name: 'TV, Áudio e Home Theater',
-          icon: 'fa-tv',
+          icon: 'tv',
         },
         {
           name: 'Informática',
-          icon: 'fa-mouse',
+          icon: 'mouse',
         },
         {
           name: 'Moda',
-          icon: 'fa-tshirt',
+          icon: 'tshirt',
         },
         {
           name: 'Esporte e Suplementos',
-          icon: 'fa-futbol',
+          icon: 'futbol',
         },
         {
           name: 'Móveis e Decoração',
-          icon: 'fa-couch',
+          icon: 'couch',
         },
         {
           name: 'Beleza e Perfumaria',
-          icon: 'fa-eye',
+          icon: 'eye',
         },
         {
           name: 'Outros',
-          icon: 'fa-box',
+          icon: 'box',
         },
       ])
       .execute();
