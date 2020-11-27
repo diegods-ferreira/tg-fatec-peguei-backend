@@ -88,7 +88,7 @@ class Item {
   updated_at: Date;
 
   @Expose({ name: 'image_url' })
-  getAvatarUrl(): string | null {
+  getImageUrl(): string | null {
     if (!this.image) {
       return null;
     }
