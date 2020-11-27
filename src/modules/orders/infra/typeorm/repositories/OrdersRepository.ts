@@ -1,4 +1,4 @@
-import { getRepository, Not, Repository } from 'typeorm';
+import { getRepository, Repository } from 'typeorm';
 
 import IOrdersRepository from '@modules/orders/repositories/IOrdersRepository';
 import IFindAllOrdersDTO from '@modules/orders/dtos/IFindAllOrdersDTO';
@@ -15,20 +15,55 @@ class OrdersRepository implements IOrdersRepository {
 
   public async findAllOrders({
     except_user_id,
+    distance,
+    user_location,
   }: IFindAllOrdersDTO): Promise<Order[]> {
     let orders;
 
     if (except_user_id) {
-      orders = await this.ormRepository.find({
-        where: {
-          requester_id: Not(except_user_id),
-        },
-        relations: ['items'],
-      });
+      orders = await this.ormRepository
+        .createQueryBuilder('orders')
+        .select()
+        .where(`orders.requester_id <> '${except_user_id}'`)
+        .andWhere(
+          `getdistance(orders.pickup_latitude, orders.pickup_longitude, ${user_location.latitude}, ${user_location.longitude}) <= ${distance}`,
+        )
+        .leftJoinAndSelect('orders.items', 'items')
+        .leftJoinAndSelect('items.category', 'items.category')
+        .leftJoinAndSelect('items.weight_unit_measure', 'weight_unit_measure')
+        .leftJoinAndSelect(
+          'items.dimension_unit_measure',
+          'dimension_unit_measure',
+        )
+        .leftJoinAndSelect('orders.requester', 'requester')
+        .leftJoinAndSelect('orders.deliveryman', 'deliveryman')
+        .orderBy(
+          `getdistance(orders.pickup_latitude, orders.pickup_longitude, ${user_location.latitude}, ${user_location.longitude})`,
+          'ASC',
+        )
+        .getMany();
     } else {
-      orders = await this.ormRepository.find({ relations: ['items'] });
+      orders = await this.ormRepository
+        .createQueryBuilder('orders')
+        .select()
+        .where(
+          `getdistance(orders.pickup_latitude, orders.pickup_longitude, ${user_location.latitude}, ${user_location.longitude}) <= ${distance}`,
+        )
+        .leftJoinAndSelect('orders.items', 'items')
+        .leftJoinAndSelect('items.category', 'items.category')
+        .leftJoinAndSelect('items.weight_unit_measure', 'weight_unit_measure')
+        .leftJoinAndSelect(
+          'items.dimension_unit_measure',
+          'dimension_unit_measure',
+        )
+        .leftJoinAndSelect('orders.requester', 'requester')
+        .leftJoinAndSelect('orders.deliveryman', 'deliveryman')
+        .orderBy(
+          `getdistance(orders.pickup_latitude, orders.pickup_longitude, ${user_location.latitude}, ${user_location.longitude})`,
+          'ASC',
+        )
+        .getMany();
     }
-
     return orders;
   }
 
@@ -54,6 +89,9 @@ class OrdersRepository implements IOrdersRepository {
     const orders = await this.ormRepository.find({
       where: { requester_id: user_id, status },
       relations: ['items'],
+      order: {
+        created_at: 'DESC',
+      },
     });
 
     return orders;
