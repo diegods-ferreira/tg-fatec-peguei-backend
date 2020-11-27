@@ -97,7 +97,7 @@ class Order {
   trip: Trip[];
 
   @Expose({ name: 'purchase_invoice_url' })
-  getAvatarUrl(): string | null {
+  getPurchaseInvoiceUrl(): string | null {
     if (!this.purchase_invoice) {
       return null;
     }
