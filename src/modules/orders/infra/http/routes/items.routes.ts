@@ -13,6 +13,16 @@ const upload = multer(uploadConfig.multer);
 
 itemsRouter.use(ensureAuthenticated);
 
+itemsRouter.get(
+  '/:item_id',
+  celebrate({
+    [Segments.PARAMS]: {
+      item_id: Joi.string().required(),
+    },
+  }),
+  itemsControler.show,
+);
+
 itemsRouter.put(
   '/',
   celebrate({
