@@ -7,7 +7,7 @@ interface IRequest {
   user_latitude: number;
   user_longitude: number;
   distance: number;
-  page;
+  page: number;
 }
 
 @injectable()
