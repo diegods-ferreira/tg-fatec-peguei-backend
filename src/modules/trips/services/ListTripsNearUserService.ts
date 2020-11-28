@@ -1,6 +1,3 @@
-import sortTripsByDistance from '@modules/trips/utils/sortTripsByDistance';
-import { isAfter } from 'date-fns';
-import { getPreciseDistance } from 'geolib';
 import { inject, injectable } from 'tsyringe';
 import Trip from '../infra/typeorm/entities/Trip';
 import ITripsRepository from '../repositories/ITripsRepository';
