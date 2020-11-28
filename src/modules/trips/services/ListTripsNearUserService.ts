@@ -27,31 +27,11 @@ class ListTripsNearUserService {
   }: IRequest): Promise<Trip[]> {
     const trips = await this.tripsRepository.findAllTrips({
       except_user_id: user_id,
+      distance,
+      user_location: { latitude: user_latitude, longitude: user_longitude },
     });
 
-    const distanceInMeters = distance * 1000;
-
-    const filteredTripsByDistance = trips.filter(trip => {
-      return (
-        getPreciseDistance(
-          {
-            latitude: user_latitude,
-            longitude: user_longitude,
-          },
-          {
-            latitude: trip.destination_latitude,
-            longitude: trip.destination_longitude,
-          },
-        ) <= distanceInMeters && isAfter(trip.return_date, new Date())
-      );
-    });
-
-    const sortedTrips = await sortTripsByDistance(filteredTripsByDistance, {
-      latitude: user_latitude,
-      longitude: user_longitude,
-    });
-
-    return sortedTrips;
+    return trips;
   }
 }
 
