@@ -17,17 +17,15 @@ class OrdersRepository implements IOrdersRepository {
     except_user_id,
     distance,
     user_location,
+    page,
   }: IFindAllOrdersDTO): Promise<Order[]> {
     let orders;
+    const offset = (page - 1) * 10;
 
     if (except_user_id) {
       orders = await this.ormRepository
         .createQueryBuilder('orders')
         .select()
-        .where(`orders.requester_id <> '${except_user_id}'`)
-        .andWhere(
-          `getdistance(orders.pickup_latitude, orders.pickup_longitude, ${user_location.latitude}, ${user_location.longitude}) <= ${distance}`,
-        )
         .leftJoinAndSelect('orders.items', 'items')
         .leftJoinAndSelect('items.category', 'items.category')
         .leftJoinAndSelect('items.weight_unit_measure', 'weight_unit_measure')
@@ -37,18 +35,21 @@ class OrdersRepository implements IOrdersRepository {
         )
         .leftJoinAndSelect('orders.requester', 'requester')
         .leftJoinAndSelect('orders.deliveryman', 'deliveryman')
+        .where(`orders.requester_id <> '${except_user_id}'`)
+        .andWhere(
+          `getdistance(orders.pickup_latitude, orders.pickup_longitude, ${user_location.latitude}, ${user_location.longitude}) <= ${distance}`,
+        )
         .orderBy(
           `getdistance(orders.pickup_latitude, orders.pickup_longitude, ${user_location.latitude}, ${user_location.longitude})`,
           'ASC',
         )
+        .limit(10)
+        .offset(offset)
         .getMany();
     } else {
       orders = await this.ormRepository
         .createQueryBuilder('orders')
         .select()
-        .where(
-          `getdistance(orders.pickup_latitude, orders.pickup_longitude, ${user_location.latitude}, ${user_location.longitude}) <= ${distance}`,
-        )
         .leftJoinAndSelect('orders.items', 'items')
         .leftJoinAndSelect('items.category', 'items.category')
         .leftJoinAndSelect('items.weight_unit_measure', 'weight_unit_measure')
@@ -58,10 +59,15 @@ class OrdersRepository implements IOrdersRepository {
         )
         .leftJoinAndSelect('orders.requester', 'requester')
         .leftJoinAndSelect('orders.deliveryman', 'deliveryman')
+        .where(
+          `getdistance(orders.pickup_latitude, orders.pickup_longitude, ${user_location.latitude}, ${user_location.longitude}) <= ${distance}`,
+        )
         .orderBy(
           `getdistance(orders.pickup_latitude, orders.pickup_longitude, ${user_location.latitude}, ${user_location.longitude})`,
           'ASC',
         )
+        .limit(10)
+        .offset(offset)
         .getMany();
     }
     return orders;

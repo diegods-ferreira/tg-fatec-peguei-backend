@@ -28,13 +28,26 @@ class TripsRepository implements ITripsRepository {
     except_user_id,
     distance,
     user_location,
+    page,
   }: IFindAllTripsDTO): Promise<Trip[]> {
     let trips;
+    const offset = (page - 1) * 10;
 
     if (except_user_id) {
       trips = await this.ormRepository
         .createQueryBuilder('trips')
         .select()
+        .leftJoinAndSelect('trips.user', 'user')
+        .leftJoinAndSelect('trips.orders', 'orders')
+        .leftJoinAndSelect('orders.items', 'items')
+        .leftJoinAndSelect('items.category', 'items.category')
+        .leftJoinAndSelect('items.weight_unit_measure', 'weight_unit_measure')
+        .leftJoinAndSelect(
+          'items.dimension_unit_measure',
+          'dimension_unit_measure',
+        )
+        .leftJoinAndSelect('orders.requester', 'requester')
+        .leftJoinAndSelect('orders.deliveryman', 'deliveryman')
         .where(`trips.user_id <> '${except_user_id}'`)
         .andWhere(
           `getdistance(trips.destination_latitude, trips.destination_longitude, ${user_location.latitude}, ${user_location.longitude}) <= ${distance}`,
@@ -42,6 +55,16 @@ class TripsRepository implements ITripsRepository {
         .andWhere(
           `trips.return_date >= '${format(new Date(), 'yyyy-MM-dd HH:mm:ss')}'`,
         )
+        .orderBy(
+          `getdistance(trips.destination_latitude, trips.destination_longitude, ${user_location.latitude}, ${user_location.longitude}) <= ${distance}`,
+        )
+        .limit(10)
+        .offset(offset)
+        .getMany();
+    } else {
+      trips = await this.ormRepository
+        .createQueryBuilder('trips')
+        .select()
         .leftJoinAndSelect('trips.user', 'user')
         .leftJoinAndSelect('trips.orders', 'orders')
         .leftJoinAndSelect('orders.items', 'items')
@@ -53,34 +76,17 @@ class TripsRepository implements ITripsRepository {
         )
         .leftJoinAndSelect('orders.requester', 'requester')
         .leftJoinAndSelect('orders.deliveryman', 'deliveryman')
-        .orderBy(
-          `getdistance(trips.destination_latitude, trips.destination_longitude, ${user_location.latitude}, ${user_location.longitude}) <= ${distance}`,
-        )
-        .getMany();
-    } else {
-      trips = await this.ormRepository
-        .createQueryBuilder('trips')
-        .select()
         .where(
           `getdistance(trips.destination_latitude, trips.destination_longitude, ${user_location.latitude}, ${user_location.longitude}) <= ${distance}`,
         )
         .andWhere(
           `trips.return_date >= '${format(new Date(), 'yyyy-MM-dd HH:mm:ss')}'`,
         )
-        .leftJoinAndSelect('trips.user', 'user')
-        .leftJoinAndSelect('trips.orders', 'orders')
-        .leftJoinAndSelect('orders.items', 'items')
-        .leftJoinAndSelect('items.category', 'items.category')
-        .leftJoinAndSelect('items.weight_unit_measure', 'weight_unit_measure')
-        .leftJoinAndSelect(
-          'items.dimension_unit_measure',
-          'dimension_unit_measure',
-        )
-        .leftJoinAndSelect('orders.requester', 'requester')
-        .leftJoinAndSelect('orders.deliveryman', 'deliveryman')
         .orderBy(
           `getdistance(trips.destination_latitude, trips.destination_longitude, ${user_location.latitude}, ${user_location.longitude}) <= ${distance}`,
         )
+        .limit(10)
+        .offset(offset)
         .getMany();
     }
 

@@ -98,7 +98,7 @@ export default class OrdersController {
 
   public async index(request: Request, response: Response): Promise<Response> {
     const user_id = request.user.id;
-    const { user_latitude, user_longitude, distance } = request.query;
+    const { user_latitude, user_longitude, distance, page } = request.query;
 
     const listOrdersNearUser = container.resolve(ListOrdersNearUserService);
 
@@ -107,6 +107,7 @@ export default class OrdersController {
       user_latitude: Number(user_latitude),
       user_longitude: Number(user_longitude),
       distance: Number(distance),
+      page: Number(page) || 1,
     });
 
     return response.json(classToClass(orders));

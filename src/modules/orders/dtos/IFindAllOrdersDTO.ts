@@ -5,4 +5,5 @@ export default interface IFindAllOrdersDTO {
     latitude: number;
     longitude: number;
   };
+  page: number;
 }

@@ -23,6 +23,7 @@ ordersRouter.get(
       user_latitude: Joi.number().required(),
       user_longitude: Joi.number().required(),
       distance: Joi.number().required(),
+      page: Joi.number().optional(),
     },
   }),
   ordersController.index,
