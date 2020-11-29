@@ -6,7 +6,6 @@ import IOrdersRepository from '../repositories/IOrdersRepository';
 
 interface IRequest {
   user_id: string;
-  status: number;
 }
 
 @injectable()
@@ -19,13 +18,13 @@ class ListUserOrdersService {
     private cacheProvider: ICacheProvider,
   ) {}
 
-  public async execute({ user_id, status }: IRequest): Promise<Order[]> {
+  public async execute({ user_id }: IRequest): Promise<Order[]> {
     let orders = await this.cacheProvider.recover<Order[]>(
       `@Peguei!:user-orders-list:${user_id}`,
     );
 
     if (!orders) {
-      orders = await this.ordersRepository.findByUserId(user_id, status);
+      orders = await this.ordersRepository.findByUserId(user_id);
     }
 
     await this.cacheProvider.save(

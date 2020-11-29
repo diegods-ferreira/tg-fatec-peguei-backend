@@ -8,6 +8,7 @@ interface IRequest {
   user_longitude: number;
   distance: number;
   page: number;
+  date: Date;
 }
 
 @injectable()
@@ -23,12 +24,14 @@ class ListTripsNearUserService {
     user_longitude,
     distance,
     page,
+    date,
   }: IRequest): Promise<Trip[]> {
     const trips = await this.tripsRepository.findAllTrips({
       except_user_id: user_id,
       distance,
       user_location: { latitude: user_latitude, longitude: user_longitude },
       page,
+      date,
     });
 
     return trips;

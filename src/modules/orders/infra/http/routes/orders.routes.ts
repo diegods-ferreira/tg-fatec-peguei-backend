@@ -24,10 +24,13 @@ ordersRouter.get(
       user_longitude: Joi.number().required(),
       distance: Joi.number().required(),
       page: Joi.number().optional(),
+      date: Joi.date().required(),
     },
   }),
   ordersController.index,
 );
+
+ordersRouter.get('/me/', userOrdersController.index);
 
 ordersRouter.get(
   '/:order_id',
@@ -37,16 +40,6 @@ ordersRouter.get(
     },
   }),
   ordersController.show,
-);
-
-ordersRouter.get(
-  '/me/:status',
-  celebrate({
-    [Segments.PARAMS]: {
-      status: Joi.number().required(),
-    },
-  }),
-  userOrdersController.index,
 );
 
 // ordersRouter.get('/search', ordersController.showByKeys);

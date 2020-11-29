@@ -4,6 +4,7 @@ import IOrdersRepository from '@modules/orders/repositories/IOrdersRepository';
 import IFindAllOrdersDTO from '@modules/orders/dtos/IFindAllOrdersDTO';
 // import IFindByKeysDTO from '@modules/orders/dtos/IFindByKeysDTO';
 import ICreateOrderDTO from '@modules/orders/dtos/ICreateOrderDTO';
+import { format } from 'date-fns';
 import Order from '../entities/Order';
 
 class OrdersRepository implements IOrdersRepository {
@@ -18,14 +19,19 @@ class OrdersRepository implements IOrdersRepository {
     distance,
     user_location,
     page,
+    date,
   }: IFindAllOrdersDTO): Promise<Order[]> {
     let orders;
-    const offset = (page - 1) * 10;
+    const skip = (page - 1) * 10;
 
     if (except_user_id) {
       orders = await this.ormRepository
         .createQueryBuilder('orders')
         .select()
+        .addSelect(
+          `getdistance(orders.pickup_latitude, orders.pickup_longitude, ${user_location.latitude}, ${user_location.longitude})`,
+          'distance_from_user',
+        )
         .leftJoinAndSelect('orders.items', 'items')
         .leftJoinAndSelect('items.category', 'items.category')
         .leftJoinAndSelect('items.weight_unit_measure', 'weight_unit_measure')
@@ -39,17 +45,21 @@ class OrdersRepository implements IOrdersRepository {
         .andWhere(
           `getdistance(orders.pickup_latitude, orders.pickup_longitude, ${user_location.latitude}, ${user_location.longitude}) <= ${distance}`,
         )
-        .orderBy(
-          `getdistance(orders.pickup_latitude, orders.pickup_longitude, ${user_location.latitude}, ${user_location.longitude})`,
-          'ASC',
+        .andWhere(
+          `orders.created_at <= '${format(date, 'yyyy-MM-dd HH:mm:ss')}'`,
         )
-        .limit(10)
-        .offset(offset)
+        .orderBy('distance_from_user', 'ASC')
+        .take(10)
+        .skip(skip)
         .getMany();
     } else {
       orders = await this.ormRepository
         .createQueryBuilder('orders')
         .select()
+        .addSelect(
+          `getdistance(orders.pickup_latitude, orders.pickup_longitude, ${user_location.latitude}, ${user_location.longitude})`,
+          'distance_from_user',
+        )
         .leftJoinAndSelect('orders.items', 'items')
         .leftJoinAndSelect('items.category', 'items.category')
         .leftJoinAndSelect('items.weight_unit_measure', 'weight_unit_measure')
@@ -62,12 +72,12 @@ class OrdersRepository implements IOrdersRepository {
         .where(
           `getdistance(orders.pickup_latitude, orders.pickup_longitude, ${user_location.latitude}, ${user_location.longitude}) <= ${distance}`,
         )
-        .orderBy(
-          `getdistance(orders.pickup_latitude, orders.pickup_longitude, ${user_location.latitude}, ${user_location.longitude})`,
-          'ASC',
+        .andWhere(
+          `orders.created_at <= '${format(date, 'yyyy-MM-dd HH:mm:ss')}'`,
         )
-        .limit(10)
-        .offset(offset)
+        .orderBy('distance_from_user', 'ASC')
+        .take(10)
+        .skip(skip)
         .getMany();
     }
     return orders;
@@ -91,9 +101,9 @@ class OrdersRepository implements IOrdersRepository {
     return order;
   }
 
-  public async findByUserId(user_id: string, status: number): Promise<Order[]> {
+  public async findByUserId(user_id: string): Promise<Order[]> {
     const orders = await this.ormRepository.find({
-      where: { requester_id: user_id, status },
+      where: { requester_id: user_id },
       relations: ['items'],
       order: {
         created_at: 'DESC',

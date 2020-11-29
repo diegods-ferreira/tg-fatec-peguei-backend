@@ -29,14 +29,19 @@ class TripsRepository implements ITripsRepository {
     distance,
     user_location,
     page,
+    date,
   }: IFindAllTripsDTO): Promise<Trip[]> {
     let trips;
-    const offset = (page - 1) * 10;
+    const skip = (page - 1) * 10;
 
     if (except_user_id) {
       trips = await this.ormRepository
         .createQueryBuilder('trips')
         .select()
+        .addSelect(
+          `getdistance(orders.pickup_latitude, orders.pickup_longitude, ${user_location.latitude}, ${user_location.longitude})`,
+          'distance_from_user',
+        )
         .leftJoinAndSelect('trips.user', 'user')
         .leftJoinAndSelect('trips.orders', 'orders')
         .leftJoinAndSelect('orders.items', 'items')
@@ -53,18 +58,20 @@ class TripsRepository implements ITripsRepository {
           `getdistance(trips.destination_latitude, trips.destination_longitude, ${user_location.latitude}, ${user_location.longitude}) <= ${distance}`,
         )
         .andWhere(
-          `trips.return_date >= '${format(new Date(), 'yyyy-MM-dd HH:mm:ss')}'`,
+          `trips.created_at <= '${format(date, 'yyyy-MM-dd HH:mm:ss')}'`,
         )
-        .orderBy(
-          `getdistance(trips.destination_latitude, trips.destination_longitude, ${user_location.latitude}, ${user_location.longitude}) <= ${distance}`,
-        )
-        .limit(10)
-        .offset(offset)
+        .orderBy('distance_from_user')
+        .take(10)
+        .skip(skip)
         .getMany();
     } else {
       trips = await this.ormRepository
         .createQueryBuilder('trips')
         .select()
+        .addSelect(
+          `getdistance(orders.pickup_latitude, orders.pickup_longitude, ${user_location.latitude}, ${user_location.longitude})`,
+          'distance_from_user',
+        )
         .leftJoinAndSelect('trips.user', 'user')
         .leftJoinAndSelect('trips.orders', 'orders')
         .leftJoinAndSelect('orders.items', 'items')
@@ -80,13 +87,11 @@ class TripsRepository implements ITripsRepository {
           `getdistance(trips.destination_latitude, trips.destination_longitude, ${user_location.latitude}, ${user_location.longitude}) <= ${distance}`,
         )
         .andWhere(
-          `trips.return_date >= '${format(new Date(), 'yyyy-MM-dd HH:mm:ss')}'`,
+          `trips.created_at <= '${format(date, 'yyyy-MM-dd HH:mm:ss')}'`,
         )
-        .orderBy(
-          `getdistance(trips.destination_latitude, trips.destination_longitude, ${user_location.latitude}, ${user_location.longitude}) <= ${distance}`,
-        )
-        .limit(10)
-        .offset(offset)
+        .orderBy('distance_from_user')
+        .take(10)
+        .skip(skip)
         .getMany();
     }
 

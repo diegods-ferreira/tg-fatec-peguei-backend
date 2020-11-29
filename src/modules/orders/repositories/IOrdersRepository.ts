@@ -41,5 +41,5 @@ export default interface IOrdersRepository {
    * Finds the orders of an specific user
    * @param user_id requester id
    */
-  findByUserId(user_id: string, status: number): Promise<Order[]>;
+  findByUserId(user_id: string): Promise<Order[]>;
 }

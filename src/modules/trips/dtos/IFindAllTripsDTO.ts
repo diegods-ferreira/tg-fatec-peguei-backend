@@ -6,4 +6,5 @@ export default interface IFindAllTripsDTO {
     longitude: number;
   };
   page: number;
+  date: Date;
 }
