@@ -2,9 +2,8 @@ import { getRepository, Repository } from 'typeorm';
 
 import IOrdersRepository from '@modules/orders/repositories/IOrdersRepository';
 import IFindAllOrdersDTO from '@modules/orders/dtos/IFindAllOrdersDTO';
-// import IFindByKeysDTO from '@modules/orders/dtos/IFindByKeysDTO';
 import ICreateOrderDTO from '@modules/orders/dtos/ICreateOrderDTO';
-import { format } from 'date-fns';
+import { format, addMinutes } from 'date-fns';
 import Order from '../entities/Order';
 
 class OrdersRepository implements IOrdersRepository {
@@ -23,6 +22,10 @@ class OrdersRepository implements IOrdersRepository {
   }: IFindAllOrdersDTO): Promise<Order[]> {
     let orders;
     const skip = (page - 1) * 10;
+    const formattedDate = format(
+      addMinutes(date, date.getTimezoneOffset()),
+      'yyyy-MM-dd HH:mm:ss',
+    );
 
     if (except_user_id) {
       orders = await this.ormRepository
@@ -45,9 +48,7 @@ class OrdersRepository implements IOrdersRepository {
         .andWhere(
           `getdistance(orders.pickup_latitude, orders.pickup_longitude, ${user_location.latitude}, ${user_location.longitude}) <= ${distance}`,
         )
-        .andWhere(
-          `orders.created_at <= '${format(date, 'yyyy-MM-dd HH:mm:ss')}'`,
-        )
+        .andWhere(`orders.created_at <= '${formattedDate}'`)
         .orderBy('distance_from_user', 'ASC')
         .take(10)
         .skip(skip)
@@ -72,9 +73,7 @@ class OrdersRepository implements IOrdersRepository {
         .where(
           `getdistance(orders.pickup_latitude, orders.pickup_longitude, ${user_location.latitude}, ${user_location.longitude}) <= ${distance}`,
         )
-        .andWhere(
-          `orders.created_at <= '${format(date, 'yyyy-MM-dd HH:mm:ss')}'`,
-        )
+        .andWhere(`orders.created_at <= '${formattedDate}'`)
         .orderBy('distance_from_user', 'ASC')
         .take(10)
         .skip(skip)
@@ -82,15 +81,6 @@ class OrdersRepository implements IOrdersRepository {
     }
     return orders;
   }
-
-  // public async findByKeys(keys: IFindByKeysDTO): Promise<Order[]> {
-  //   const orders = await this.ormRepository.find({
-  //     where: `${keys} = ${keys}`,
-  //     relations: ['items'],
-  //   });
-
-  //   return orders;
-  // }
 
   public async findById(order_id: string): Promise<Order | undefined> {
     const order = await this.ormRepository.findOne({

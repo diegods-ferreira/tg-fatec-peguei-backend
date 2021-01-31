@@ -2,7 +2,7 @@ import ICreateTripDTO from '@modules/trips/dtos/ICreateTripDTO';
 import IFindAllTripsDTO from '@modules/trips/dtos/IFindAllTripsDTO';
 import ITripsRepository from '@modules/trips/repositories/ITripsRepository';
 import { getRepository, Repository } from 'typeorm';
-import { format } from 'date-fns';
+import { format, addMinutes } from 'date-fns';
 import Trip from '../entities/Trip';
 
 class TripsRepository implements ITripsRepository {
@@ -33,6 +33,10 @@ class TripsRepository implements ITripsRepository {
   }: IFindAllTripsDTO): Promise<Trip[]> {
     let trips;
     const skip = (page - 1) * 10;
+    const formattedDate = format(
+      addMinutes(date, date.getTimezoneOffset()),
+      'yyyy-MM-dd HH:mm:ss',
+    );
 
     if (except_user_id) {
       trips = await this.ormRepository
@@ -57,9 +61,7 @@ class TripsRepository implements ITripsRepository {
         .andWhere(
           `getdistance(trips.destination_latitude, trips.destination_longitude, ${user_location.latitude}, ${user_location.longitude}) <= ${distance}`,
         )
-        .andWhere(
-          `trips.created_at <= '${format(date, 'yyyy-MM-dd HH:mm:ss')}'`,
-        )
+        .andWhere(`trips.created_at <= '${formattedDate}'`)
         .orderBy('distance_from_user')
         .take(10)
         .skip(skip)
@@ -86,9 +88,7 @@ class TripsRepository implements ITripsRepository {
         .where(
           `getdistance(trips.destination_latitude, trips.destination_longitude, ${user_location.latitude}, ${user_location.longitude}) <= ${distance}`,
         )
-        .andWhere(
-          `trips.created_at <= '${format(date, 'yyyy-MM-dd HH:mm:ss')}'`,
-        )
+        .andWhere(`trips.created_at <= '${formattedDate}'`)
         .orderBy('distance_from_user')
         .take(10)
         .skip(skip)

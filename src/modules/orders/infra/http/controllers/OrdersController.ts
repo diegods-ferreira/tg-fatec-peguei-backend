@@ -5,7 +5,6 @@ import UpdateOrderService from '@modules/orders/services/UpdateOrderService';
 import ListOrdersNearUserService from '@modules/orders/services/ListOrdersNearUserService';
 import ShowOrderDetailsService from '@modules/orders/services/ShowOrderDetailsService';
 import { classToClass } from 'class-transformer';
-// import ListOrdersByKeysService from '@modules/orders/services/ListOrdersByKeysService';
 
 export default class OrdersController {
   public async create(request: Request, response: Response): Promise<Response> {
@@ -98,13 +97,7 @@ export default class OrdersController {
 
   public async index(request: Request, response: Response): Promise<Response> {
     const user_id = request.user.id;
-    const {
-      user_latitude,
-      user_longitude,
-      distance,
-      page,
-      date,
-    } = request.query;
+    const { user_latitude, user_longitude, distance, page } = request.query;
 
     const listOrdersNearUser = container.resolve(ListOrdersNearUserService);
 
@@ -114,7 +107,7 @@ export default class OrdersController {
       user_longitude: Number(user_longitude),
       distance: Number(distance),
       page: Number(page) || 1,
-      date: new Date(String(date)),
+      date: new Date(),
     });
 
     return response.json(classToClass(orders));
@@ -129,17 +122,4 @@ export default class OrdersController {
 
     return response.json(classToClass(order));
   }
-
-  // public async showByKeys(
-  //   request: Request,
-  //   response: Response,
-  // ): Promise<Response> {
-  //   const keys = request.query;
-
-  //   const listOrdersByKeys = container.resolve(ListOrdersByKeysService);
-
-  //   const orders = listOrdersByKeys.execute({ keys: String(keys) });
-
-  //   return response.json(orders);
-  // }
 }

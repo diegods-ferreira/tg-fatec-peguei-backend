@@ -24,7 +24,6 @@ ordersRouter.get(
       user_longitude: Joi.number().required(),
       distance: Joi.number().required(),
       page: Joi.number().optional(),
-      date: Joi.date().required(),
     },
   }),
   ordersController.index,
@@ -41,8 +40,6 @@ ordersRouter.get(
   }),
   ordersController.show,
 );
-
-// ordersRouter.get('/search', ordersController.showByKeys);
 
 ordersRouter.post(
   '/',

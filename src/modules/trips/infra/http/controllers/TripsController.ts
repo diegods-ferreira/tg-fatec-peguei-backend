@@ -62,13 +62,7 @@ export default class TripsController {
 
   public async index(request: Request, response: Response): Promise<Response> {
     const user_id = request.user.id;
-    const {
-      user_latitude,
-      user_longitude,
-      distance,
-      page,
-      date,
-    } = request.query;
+    const { user_latitude, user_longitude, distance, page } = request.query;
 
     const listTripsNearUser = container.resolve(ListTripsNearUserService);
 
@@ -78,7 +72,7 @@ export default class TripsController {
       user_longitude: Number(user_longitude),
       distance: Number(distance),
       page: Number(page) || 1,
-      date: new Date(String(date)),
+      date: new Date(),
     });
 
     return response.json(trips);

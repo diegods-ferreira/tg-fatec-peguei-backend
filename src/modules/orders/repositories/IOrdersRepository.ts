@@ -1,6 +1,5 @@
 import ICreateOrderDTO from '../dtos/ICreateOrderDTO';
 import IFindAllOrdersDTO from '../dtos/IFindAllOrdersDTO';
-// import IFindByKeysDTO from '../dtos/IFindByKeysDTO';
 import Order from '../infra/typeorm/entities/Order';
 
 /**
@@ -24,12 +23,6 @@ export default interface IOrdersRepository {
    * @param data Order data
    */
   findAllOrders(data: IFindAllOrdersDTO): Promise<Order[]>;
-
-  /**
-   * Finds all the orders that match the keys
-   * @param keys finding keys define by IFindByKeysDTO interface
-   */
-  // findByKeys(keys: IFindByKeysDTO): Promise<Order[]>;
 
   /**
    * Finds an order by it's unique ID
