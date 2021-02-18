@@ -3,6 +3,7 @@ import { celebrate, Joi, Segments } from 'celebrate';
 import { Router } from 'express';
 import multer from 'multer';
 import uploadConfig from '@config/upload';
+import requestPickupOffersRouter from '@modules/request_pickup_offers/infra/http/routes/request_pickup_offer.routes';
 import OrdersController from '../controllers/OrdersController';
 import OrderPurchaseInvoiceController from '../controllers/OrderPurchaseInvoiceController';
 import UserOrdersController from '../controllers/UserOrdersController';
@@ -15,6 +16,7 @@ const userOrdersController = new UserOrdersController();
 const upload = multer(uploadConfig.multer);
 
 ordersRouter.use(ensureAuthenticated);
+ordersRouter.use('/pickup-offers', requestPickupOffersRouter);
 
 ordersRouter.get(
   '/',

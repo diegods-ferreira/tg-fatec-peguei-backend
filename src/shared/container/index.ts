@@ -21,6 +21,9 @@ import OrdersRepository from '@modules/orders/infra/typeorm/repositories/OrdersR
 import ITripsRepository from '@modules/trips/repositories/ITripsRepository';
 import TripsRepository from '@modules/trips/infra/typeorm/repositories/TripsRepository';
 
+import IRequestPickupOffersRepository from '@modules/request_pickup_offers/repositories/IRequestPickupOffersRepository';
+import RequestPickupOffersRepository from '@modules/request_pickup_offers/infra/typeorm/repositories/RequestPickupOffersRepository';
+
 container.registerSingleton<IUsersRepository>(
   'UsersRepository',
   UsersRepository,
@@ -49,4 +52,9 @@ container.registerSingleton<IOrdersRepository>(
 container.registerSingleton<ITripsRepository>(
   'TripsRepository',
   TripsRepository,
+);
+
+container.registerSingleton<IRequestPickupOffersRepository>(
+  'RequestPickupOffersRepository',
+  RequestPickupOffersRepository,
 );
