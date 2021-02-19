@@ -46,6 +46,16 @@ class RequestPickupOffersRepository implements IRequestPickupOffersRepository {
 
     return requestPickupOffers;
   }
+
+  public async findById(id: string): Promise<RequestPickupOffer | undefined> {
+    const requestPickupOffer = await this.ormRepository.findOne(id);
+
+    return requestPickupOffer;
+  }
+
+  public async delete(id: string): Promise<void> {
+    await this.ormRepository.delete(id);
+  }
 }
 
 export default RequestPickupOffersRepository;

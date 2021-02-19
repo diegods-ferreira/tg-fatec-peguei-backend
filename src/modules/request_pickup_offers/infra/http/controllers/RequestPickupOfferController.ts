@@ -1,4 +1,5 @@
 import CreateRequestPickupOfferService from '@modules/request_pickup_offers/services/CreateRequestPickupOfferService';
+import DeleteRequestPickupOfferService from '@modules/request_pickup_offers/services/DeleteRequestPickupOfferService';
 import GetRequestPickupOfferByIdService from '@modules/request_pickup_offers/services/GetRequestPickupOfferByIdService';
 import ListAllRequestPickupOffersOfAnOrderService from '@modules/request_pickup_offers/services/ListAllRequestPickupOffersOfAnOrderService';
 import { Request, Response } from 'express';
@@ -50,5 +51,17 @@ export default class RequestPickupOfferController {
     });
 
     return response.json(requestPickupOffer);
+  }
+
+  public async delete(request: Request, response: Response): Promise<Response> {
+    const { id } = request.params;
+
+    const deleteRequestPickupOfferService = container.resolve(
+      DeleteRequestPickupOfferService,
+    );
+
+    await deleteRequestPickupOfferService.execute({ id });
+
+    return response.status(200).send();
   }
 }

@@ -8,4 +8,6 @@ export default interface IRequestPickupOffersRepository {
     order_id: string,
   ): Promise<RequestPickupOffer | undefined>;
   findByOrderId(order_id: string): Promise<RequestPickupOffer[] | undefined>;
+  findById(id: string): Promise<RequestPickupOffer | undefined>;
+  delete(id: string): Promise<void>;
 }
