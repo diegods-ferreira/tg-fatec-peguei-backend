@@ -1,7 +1,7 @@
 import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
-import { celebrate, Joi, Segments } from 'celebrate';
 import { Router } from 'express';
 import UnitsMeasureController from '../controllers/UnitsMeasureController';
+import unitsMeasureSearchValidation from '../middlewares/validations/request.validations';
 
 const unitsMeasureRouter = Router();
 const unitsMeasureController = new UnitsMeasureController();
@@ -14,11 +14,7 @@ unitsMeasureRouter.get('/search', unitsMeasureController.showByDescription);
 
 unitsMeasureRouter.get(
   '/type/:unit_measure_type',
-  celebrate({
-    [Segments.PARAMS]: {
-      unit_measure_type: Joi.number().required(),
-    },
-  }),
+  unitsMeasureSearchValidation,
   unitsMeasureController.showByType,
 );
 

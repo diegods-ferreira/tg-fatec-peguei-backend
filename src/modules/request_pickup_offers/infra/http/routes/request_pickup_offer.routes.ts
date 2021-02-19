@@ -1,7 +1,13 @@
 import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
-import { celebrate, Joi, Segments } from 'celebrate';
 import { Router } from 'express';
 import RequestPickupOfferController from '../controllers/RequestPickupOfferController';
+import {
+  requestPickupOfferCreationValidation,
+  requestPickupOfferDeleteValidation,
+  requestPickupOfferDeliverymanSearchValidation,
+  requestPickupOfferOrderSearchValidation,
+  requestPickupOfferUpdateValidation,
+} from '../middlewares/validations/request.validations';
 
 const requestPickupOffersRouter = Router();
 const requestPickupOfferController = new RequestPickupOfferController();
@@ -10,58 +16,31 @@ requestPickupOffersRouter.use(ensureAuthenticated);
 
 requestPickupOffersRouter.post(
   '/:order_id',
-  celebrate({
-    [Segments.PARAMS]: {
-      order_id: Joi.string().required(),
-    },
-    [Segments.BODY]: {
-      delivery_value: Joi.number().required(),
-    },
-  }),
+  requestPickupOfferCreationValidation,
   requestPickupOfferController.create,
 );
 
 requestPickupOffersRouter.get(
   '/:order_id/deliveryman/:deliveryman_id',
-  celebrate({
-    [Segments.PARAMS]: {
-      order_id: Joi.string().required(),
-      deliveryman_id: Joi.string().required(),
-    },
-  }),
+  requestPickupOfferDeliverymanSearchValidation,
   requestPickupOfferController.show,
 );
 
 requestPickupOffersRouter.get(
   '/:order_id',
-  celebrate({
-    [Segments.PARAMS]: {
-      order_id: Joi.string().required(),
-    },
-  }),
+  requestPickupOfferOrderSearchValidation,
   requestPickupOfferController.index,
 );
 
 requestPickupOffersRouter.delete(
   '/:id',
-  celebrate({
-    [Segments.PARAMS]: {
-      id: Joi.string().required(),
-    },
-  }),
+  requestPickupOfferDeleteValidation,
   requestPickupOfferController.delete,
 );
 
 requestPickupOffersRouter.put(
   '/:id',
-  celebrate({
-    [Segments.PARAMS]: {
-      id: Joi.string().required(),
-    },
-    [Segments.BODY]: {
-      delivery_value: Joi.number().required(),
-    },
-  }),
+  requestPickupOfferUpdateValidation,
   requestPickupOfferController.update,
 );
 

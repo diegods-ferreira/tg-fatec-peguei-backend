@@ -1,20 +1,11 @@
 import { Router } from 'express';
-import { celebrate, Segments, Joi } from 'celebrate';
 
 import SessionsController from '../controllers/SessionsController';
+import { sessionCreationValidation } from '../middlewares/validations/request.validations';
 
 const sessionsRouter = Router();
 const sessionsController = new SessionsController();
 
-sessionsRouter.post(
-  '/',
-  celebrate({
-    [Segments.BODY]: {
-      email: Joi.string().email().required(),
-      password: Joi.string().required(),
-    },
-  }),
-  sessionsController.create,
-);
+sessionsRouter.post('/', sessionCreationValidation, sessionsController.create);
 
 export default sessionsRouter;
