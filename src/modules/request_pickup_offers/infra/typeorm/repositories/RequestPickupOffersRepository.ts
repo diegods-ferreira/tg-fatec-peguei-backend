@@ -56,6 +56,12 @@ class RequestPickupOffersRepository implements IRequestPickupOffersRepository {
   public async delete(id: string): Promise<void> {
     await this.ormRepository.delete(id);
   }
+
+  public async update(
+    requestPickupOffer: RequestPickupOffer,
+  ): Promise<RequestPickupOffer> {
+    return this.ormRepository.save(requestPickupOffer);
+  }
 }
 
 export default RequestPickupOffersRepository;

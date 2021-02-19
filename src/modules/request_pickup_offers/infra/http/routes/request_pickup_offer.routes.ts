@@ -52,4 +52,14 @@ requestPickupOffersRouter.delete(
   requestPickupOfferController.delete,
 );
 
+requestPickupOffersRouter.put(
+  '/:id',
+  celebrate({
+    [Segments.PARAMS]: {
+      id: Joi.string().required(),
+    },
+  }),
+  requestPickupOfferController.update,
+);
+
 export default requestPickupOffersRouter;

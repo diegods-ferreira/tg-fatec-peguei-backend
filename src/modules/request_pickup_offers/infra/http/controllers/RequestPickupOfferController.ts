@@ -2,6 +2,7 @@ import CreateRequestPickupOfferService from '@modules/request_pickup_offers/serv
 import DeleteRequestPickupOfferService from '@modules/request_pickup_offers/services/DeleteRequestPickupOfferService';
 import GetRequestPickupOfferByIdService from '@modules/request_pickup_offers/services/GetRequestPickupOfferByIdService';
 import ListAllRequestPickupOffersOfAnOrderService from '@modules/request_pickup_offers/services/ListAllRequestPickupOffersOfAnOrderService';
+import UpdateRequestPickupOfferService from '@modules/request_pickup_offers/services/UpdateRequestPickupOfferService';
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
@@ -63,5 +64,19 @@ export default class RequestPickupOfferController {
     await deleteRequestPickupOfferService.execute({ id });
 
     return response.status(200).send();
+  }
+
+  public async update(request: Request, response: Response): Promise<Response> {
+    const { id } = request.params;
+
+    const updateRequestPickupOfferService = container.resolve(
+      UpdateRequestPickupOfferService,
+    );
+
+    const requestPickupOffer = await updateRequestPickupOfferService.execute({
+      id,
+    });
+
+    return response.json(requestPickupOffer);
   }
 }
