@@ -4,6 +4,7 @@ import IRequestPickupOffersRepository from '../repositories/IRequestPickupOffers
 
 interface IRequest {
   id: string;
+  delivery_value: number;
 }
 
 @injectable()
@@ -13,7 +14,7 @@ class UpdateRequestPickupOfferService {
     private requestPickupOffersRepository: IRequestPickupOffersRepository,
   ) {}
 
-  public async execute({ id }: IRequest): Promise<void> {
+  public async execute({ id, delivery_value }: IRequest): Promise<void> {
     const requestPickupOffer = await this.requestPickupOffersRepository.findById(
       id,
     );
@@ -21,6 +22,8 @@ class UpdateRequestPickupOfferService {
     if (!requestPickupOffer) {
       throw new AppError('Request pickup offer not found!');
     }
+
+    requestPickupOffer.delivery_value = delivery_value;
 
     await this.requestPickupOffersRepository.update(requestPickupOffer);
   }

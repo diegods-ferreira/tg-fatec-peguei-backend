@@ -58,6 +58,9 @@ requestPickupOffersRouter.put(
     [Segments.PARAMS]: {
       id: Joi.string().required(),
     },
+    [Segments.BODY]: {
+      delivery_value: Joi.number().required(),
+    },
   }),
   requestPickupOfferController.update,
 );

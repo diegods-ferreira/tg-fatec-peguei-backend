@@ -68,6 +68,7 @@ export default class RequestPickupOfferController {
 
   public async update(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
+    const { delivery_value } = request.body;
 
     const updateRequestPickupOfferService = container.resolve(
       UpdateRequestPickupOfferService,
@@ -75,6 +76,7 @@ export default class RequestPickupOfferController {
 
     const requestPickupOffer = await updateRequestPickupOfferService.execute({
       id,
+      delivery_value: Number(delivery_value),
     });
 
     return response.json(requestPickupOffer);
