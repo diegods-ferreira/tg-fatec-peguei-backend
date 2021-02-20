@@ -12,11 +12,13 @@ import {
   orderSearchValidation,
   orderUpdateValidation,
 } from '../middlewares/validations/request.validations';
+import OrdersAsDeliverymanController from '../controllers/OrdersAsDeliverymanController';
 
 const ordersRouter = Router();
 const ordersController = new OrdersController();
 const orderPurchaseInvoiceController = new OrderPurchaseInvoiceController();
 const userOrdersController = new UserOrdersController();
+const ordersAsDeliverymanController = new OrdersAsDeliverymanController();
 
 const upload = multer(uploadConfig.multer);
 
@@ -26,6 +28,8 @@ ordersRouter.use('/pickup-offers', requestPickupOffersRouter);
 ordersRouter.get('/', orderSearchValidation, ordersController.index);
 
 ordersRouter.get('/me/', userOrdersController.index);
+
+ordersRouter.get('/deliveryman/', ordersAsDeliverymanController.index);
 
 ordersRouter.get(
   '/:order_id',

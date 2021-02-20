@@ -35,4 +35,10 @@ export default interface IOrdersRepository {
    * @param user_id requester id
    */
   findByUserId(user_id: string): Promise<Order[]>;
+
+  /**
+   * Finds the orders of an specific deliveryman
+   * @param deliveryman_id deliveryman id
+   */
+  findByDeliverymanId(deliveryman_id: string): Promise<Order[]>;
 }

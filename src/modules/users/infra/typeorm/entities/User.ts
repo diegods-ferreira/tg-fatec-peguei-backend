@@ -65,16 +65,6 @@ class User {
   @Column()
   show_phone: boolean;
 
-  @OneToMany(() => Order, order => order.requester, {
-    cascade: true,
-  })
-  orders_as_requester: Order[];
-
-  @OneToMany(() => Order, order => order.deliveryman, {
-    cascade: true,
-  })
-  orders_as_deliveryman: Order[];
-
   @OneToMany(() => Trip, trip => trip.user, {
     cascade: true,
   })
