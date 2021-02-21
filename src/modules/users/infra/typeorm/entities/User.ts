@@ -76,6 +76,16 @@ class User {
   @UpdateDateColumn()
   updated_at: Date;
 
+  @OneToMany(() => Order, order => order.requester, {
+    cascade: true,
+  })
+  orders_as_requester: Order[];
+
+  @OneToMany(() => Order, order => order.deliveryman, {
+    cascade: true,
+  })
+  orders_as_deliveryman: Order[];
+
   @Expose({ name: 'avatar_url' })
   getAvatarUrl(): string | null {
     if (!this.avatar) {

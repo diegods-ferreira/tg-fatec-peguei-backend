@@ -24,6 +24,9 @@ import TripsRepository from '@modules/trips/infra/typeorm/repositories/TripsRepo
 import IRequestPickupOffersRepository from '@modules/request_pickup_offers/repositories/IRequestPickupOffersRepository';
 import RequestPickupOffersRepository from '@modules/request_pickup_offers/infra/typeorm/repositories/RequestPickupOffersRepository';
 
+import IChatsRepository from '@modules/chats/repositories/IChatsRepository';
+import ChatsRepository from '@modules/chats/infra/typeorm/repositories/ChatsRepository';
+
 container.registerSingleton<IUsersRepository>(
   'UsersRepository',
   UsersRepository,
@@ -57,4 +60,9 @@ container.registerSingleton<ITripsRepository>(
 container.registerSingleton<IRequestPickupOffersRepository>(
   'RequestPickupOffersRepository',
   RequestPickupOffersRepository,
+);
+
+container.registerSingleton<IChatsRepository>(
+  'ChatsRepository',
+  ChatsRepository,
 );

@@ -10,8 +10,10 @@ import {
   OneToMany,
   ManyToOne,
   JoinColumn,
+  OneToOne,
 } from 'typeorm';
 import Trip from '@modules/trips/infra/typeorm/entities/Trip';
+import Chat from '@modules/chats/infra/typeorm/entities/Chat';
 import Item from './Item';
 
 @Entity('orders')
@@ -95,6 +97,9 @@ class Order {
   @ManyToOne(() => Trip, trip => trip.orders, { eager: true })
   @JoinColumn({ name: 'trip_id' })
   trip: Trip[];
+
+  @OneToOne(() => Chat, chat => chat.order)
+  chat: Chat;
 
   @Expose({ name: 'purchase_invoice_url' })
   getPurchaseInvoiceUrl(): string | null {

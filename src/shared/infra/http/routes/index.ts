@@ -8,6 +8,7 @@ import unitsMeasureRouter from '@modules/units_measure/infra/http/routes/units_m
 import ordersRouter from '@modules/orders/infra/http/routes/orders.routes';
 import itemsRouter from '@modules/orders/infra/http/routes/items.routes';
 import tripsRouter from '@modules/trips/infra/http/routes/trips.routes';
+import chatsRouter from '@modules/chats/infra/http/routes/chats.routes';
 import CacheController from '../controllers/CacheController';
 
 const routes = Router();
@@ -22,6 +23,7 @@ routes.use('/units_measure', unitsMeasureRouter);
 routes.use('/orders', ordersRouter);
 routes.use('/items', itemsRouter);
 routes.use('/trips', tripsRouter);
+routes.use('/chats', chatsRouter);
 routes.get('/clear-cache', cacheController.clear);
 
 export default routes;
