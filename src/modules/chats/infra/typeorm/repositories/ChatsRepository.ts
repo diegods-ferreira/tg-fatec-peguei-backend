@@ -1,4 +1,4 @@
-import ICreateChatDTO from '@modules/chats/dtos/IcreateChatDTO';
+import ICreateChatDTO from '@modules/chats/dtos/ICreateChatDTO';
 import IChatsRepository from '@modules/chats/repositories/IChatsRepository';
 import { getRepository, Repository } from 'typeorm';
 import Chat from '../entities/Chat';
