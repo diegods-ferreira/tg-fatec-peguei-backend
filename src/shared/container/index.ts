@@ -27,6 +27,9 @@ import RequestPickupOffersRepository from '@modules/request_pickup_offers/infra/
 import IChatsRepository from '@modules/chats/repositories/IChatsRepository';
 import ChatsRepository from '@modules/chats/infra/typeorm/repositories/ChatsRepository';
 
+import IChatMessagesRepository from '@modules/chats/repositories/IChatMessagesRepository';
+import ChatMessagesRepository from '@modules/chats/infra/typeorm/repositories/ChatMessagesRepository';
+
 container.registerSingleton<IUsersRepository>(
   'UsersRepository',
   UsersRepository,
@@ -65,4 +68,9 @@ container.registerSingleton<IRequestPickupOffersRepository>(
 container.registerSingleton<IChatsRepository>(
   'ChatsRepository',
   ChatsRepository,
+);
+
+container.registerSingleton<IChatMessagesRepository>(
+  'ChatMessagesRepository',
+  ChatMessagesRepository,
 );
