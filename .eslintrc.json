@@ -27,6 +27,7 @@
       "camelcase": "off",
       "class-methods-use-this": "off",
       "no-useless-constructor": "off",
+      "no-console": "off",
       "import/extensions": [
         "error",
         "ignorePackages",
