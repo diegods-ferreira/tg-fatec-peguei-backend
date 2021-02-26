@@ -49,15 +49,6 @@ class Chat {
   @ManyToOne(() => User, { eager: true })
   @JoinColumn({ name: 'deliveryman_id' })
   deliveryman: User;
-
-  @Expose({ name: 'authenticated_user_is' })
-  describeChatAs(): 'requester' | 'deliveryman' {
-    if (this.requester_id === this.order.requester_id) {
-      return 'requester';
-    }
-
-    return 'deliveryman';
-  }
 }
 
 export default Chat;
