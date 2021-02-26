@@ -1,13 +1,13 @@
 import ICreateChatMessageDTO from '@modules/chats/dtos/ICreateChatMessageDTO';
 import IChatMessagesRepository from '@modules/chats/repositories/IChatMessagesRepository';
-import { getRepository, Repository } from 'typeorm';
+import { getMongoRepository, MongoRepository } from 'typeorm';
 import ChatMessage from '../schemas/ChatMessage';
 
 class ChatMessagesRepository implements IChatMessagesRepository {
-  private ormRepository: Repository<ChatMessage>;
+  private ormRepository: MongoRepository<ChatMessage>;
 
   constructor() {
-    this.ormRepository = getRepository(ChatMessage);
+    this.ormRepository = getMongoRepository(ChatMessage, 'mongo');
   }
 
   public async create(data: ICreateChatMessageDTO): Promise<ChatMessage> {
