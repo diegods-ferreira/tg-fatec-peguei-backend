@@ -6,6 +6,7 @@ interface IRequest {
   from: string;
   to: string;
   text: string;
+  chat_id: string;
 }
 
 @injectable()
@@ -15,11 +16,17 @@ class CreateChatMessageService {
     private chatMessagesRepository: IChatMessagesRepository,
   ) {}
 
-  public async execute({ from, to, text }: IRequest): Promise<ChatMessage> {
+  public async execute({
+    from,
+    to,
+    text,
+    chat_id,
+  }: IRequest): Promise<ChatMessage> {
     const chatMessage = await this.chatMessagesRepository.create({
       from,
       to,
       text,
+      chat_id,
     });
 
     return chatMessage;

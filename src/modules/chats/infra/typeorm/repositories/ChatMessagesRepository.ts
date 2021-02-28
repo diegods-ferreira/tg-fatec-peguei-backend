@@ -23,7 +23,7 @@ class ChatMessagesRepository implements IChatMessagesRepository {
   ): Promise<ChatMessage[] | undefined> {
     const chatMessages = this.ormRepository.find({
       where: { chat_id },
-      order: { created_at: 'ASC' },
+      order: { created_at: 'DESC' },
     });
 
     return chatMessages;

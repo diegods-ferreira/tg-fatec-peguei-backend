@@ -20,10 +20,20 @@ export default class AddMessageInfoFieldsToTableChats1614032778942
         isNullable: true,
       }),
     );
+
+    await queryRunner.addColumn(
+      'chats',
+      new TableColumn({
+        name: 'last_message_sent_by',
+        type: 'uuid',
+        isNullable: true,
+      }),
+    );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.dropColumn('chats', 'last_message_text');
     await queryRunner.dropColumn('chats', 'last_message_sent_at');
+    await queryRunner.dropColumn('chats', 'last_message_sent_by');
   }
 }

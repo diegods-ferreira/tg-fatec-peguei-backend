@@ -38,6 +38,9 @@ class Chat {
   @Column()
   last_message_sent_at: Date;
 
+  @Column('uuid')
+  last_message_sent_by: string;
+
   @OneToOne(() => Order, order => order.chat, { eager: true })
   @JoinColumn({ name: 'order_id' })
   order: Order;
