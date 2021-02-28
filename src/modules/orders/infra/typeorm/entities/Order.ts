@@ -89,6 +89,9 @@ class Order {
   @UpdateDateColumn()
   updated_at: Date;
 
+  @Column()
+  number: number;
+
   @OneToMany(() => Item, item => item.order, {
     cascade: true,
   })
