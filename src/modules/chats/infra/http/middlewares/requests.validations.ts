@@ -14,4 +14,14 @@ const chatsCreationValidation = celebrate({
   },
 });
 
-export { chatsSearchValidation, chatsCreationValidation };
+const chatPreviousMessagesSearchValidation = celebrate({
+  [Segments.PARAMS]: {
+    chat_id: Joi.string().required(),
+  },
+});
+
+export {
+  chatsSearchValidation,
+  chatsCreationValidation,
+  chatPreviousMessagesSearchValidation,
+};
