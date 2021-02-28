@@ -42,6 +42,10 @@ class ChatsRepository implements IChatsRepository {
 
     return chats;
   }
+
+  public async update(chat: Chat): Promise<Chat> {
+    return this.ormRepository.save(chat);
+  }
 }
 
 export default ChatsRepository;

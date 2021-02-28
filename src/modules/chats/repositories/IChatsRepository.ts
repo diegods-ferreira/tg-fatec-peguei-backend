@@ -6,4 +6,5 @@ export default interface IChatsRepository {
   findById(id: string): Promise<Chat | undefined>;
   findByOrderId(order_id: string): Promise<Chat | undefined>;
   findByUserId(user_id: string): Promise<Chat[] | undefined>;
+  update(chat: Chat): Promise<Chat>;
 }
