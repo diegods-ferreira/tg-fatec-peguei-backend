@@ -72,6 +72,12 @@ const orderUpdateValidation = celebrate({
   },
 });
 
+const orderDeleteValidation = celebrate({
+  [Segments.PARAMS]: {
+    order_id: Joi.string().required(),
+  },
+});
+
 const itemSearchValidation = celebrate({
   [Segments.PARAMS]: {
     item_id: Joi.string().required(),
@@ -100,6 +106,7 @@ export {
   orderDetailsSearchValidation,
   orderCreationValidation,
   orderUpdateValidation,
+  orderDeleteValidation,
   itemSearchValidation,
   itemUpdateValidation,
 };

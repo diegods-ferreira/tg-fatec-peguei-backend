@@ -19,6 +19,12 @@ export default interface IOrdersRepository {
   save(order: Order): Promise<Order>;
 
   /**
+   * Deletes an order
+   * @param order_id order id
+   */
+  delete(order: Order): Promise<Order>;
+
+  /**
    * Finds all orders
    * @param data Order data
    */

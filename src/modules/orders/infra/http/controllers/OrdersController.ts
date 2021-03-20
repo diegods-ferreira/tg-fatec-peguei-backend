@@ -5,6 +5,7 @@ import UpdateOrderService from '@modules/orders/services/UpdateOrderService';
 import ListOrdersNearUserService from '@modules/orders/services/ListOrdersNearUserService';
 import ShowOrderDetailsService from '@modules/orders/services/ShowOrderDetailsService';
 import { classToClass } from 'class-transformer';
+import DeleteOrderService from '@modules/orders/services/DeleteOrderService';
 
 export default class OrdersController {
   public async create(request: Request, response: Response): Promise<Response> {
@@ -121,5 +122,16 @@ export default class OrdersController {
     const order = await showOrderDetails.execute({ order_id });
 
     return response.json(classToClass(order));
+  }
+
+  public async delete(request: Request, response: Response): Promise<Response> {
+    const user_id = request.user.id;
+    const { order_id } = request.params;
+
+    const deleteOrder = container.resolve(DeleteOrderService);
+
+    await deleteOrder.execute(order_id, user_id);
+
+    return response.status(200).send('Order deleted successfully');
   }
 }
