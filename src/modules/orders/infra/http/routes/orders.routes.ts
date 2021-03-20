@@ -11,6 +11,7 @@ import {
   orderDetailsSearchValidation,
   orderSearchValidation,
   orderUpdateValidation,
+  orderDeleteValidation,
 } from '../middlewares/validations/request.validations';
 import OrdersAsDeliverymanController from '../controllers/OrdersAsDeliverymanController';
 
@@ -35,6 +36,12 @@ ordersRouter.get(
   '/:order_id',
   orderDetailsSearchValidation,
   ordersController.show,
+);
+
+ordersRouter.delete(
+  '/:order_id',
+  orderDeleteValidation,
+  ordersController.delete,
 );
 
 ordersRouter.post('/', orderCreationValidation, ordersController.create);

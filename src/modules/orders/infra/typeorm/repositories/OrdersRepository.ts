@@ -1,4 +1,4 @@
-import { getRepository, Repository } from 'typeorm';
+import { DeleteResult, getRepository, Repository } from 'typeorm';
 
 import IOrdersRepository from '@modules/orders/repositories/IOrdersRepository';
 import IFindAllOrdersDTO from '@modules/orders/dtos/IFindAllOrdersDTO';
@@ -125,6 +125,10 @@ class OrdersRepository implements IOrdersRepository {
 
   public async save(order: Order): Promise<Order> {
     return this.ormRepository.save(order);
+  }
+
+  public async delete(order: Order): Promise<Order> {
+    return this.ormRepository.remove(order);
   }
 }
 
