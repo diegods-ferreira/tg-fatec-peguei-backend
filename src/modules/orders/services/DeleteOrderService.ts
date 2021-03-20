@@ -1,3 +1,4 @@
+import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 import AppError from '@shared/errors/AppError';
 import { inject, injectable } from 'tsyringe';
 import IOrdersRepository from '../repositories/IOrdersRepository';
@@ -7,6 +8,9 @@ class DeleteOrderService {
   constructor(
     @inject('OrdersRepository')
     private ordersRepository: IOrdersRepository,
+
+    @inject('CacheProvider')
+    private cacheProvider: ICacheProvider,
   ) {}
 
   public async execute(order_id: string, user_id: string): Promise<void> {
@@ -27,6 +31,10 @@ class DeleteOrderService {
     if (!deletedOrder) {
       throw new AppError('Internal server error', 500);
     }
+
+    await this.cacheProvider.invalidatePrefix(
+      `@Peguei!:user-orders-list:${user_id}`,
+    );
   }
 }
 
