@@ -26,6 +26,10 @@ class DeleteOrderService {
       );
     }
 
+    if (order.status !== 1) {
+      throw new AppError('Only open orders can be deleted');
+    }
+
     const deletedOrder = await this.ordersRepository.delete(order);
 
     if (!deletedOrder) {
