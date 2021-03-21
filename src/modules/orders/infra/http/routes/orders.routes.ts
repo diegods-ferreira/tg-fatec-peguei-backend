@@ -46,7 +46,7 @@ ordersRouter.delete(
 
 ordersRouter.post('/', orderCreationValidation, ordersController.create);
 
-ordersRouter.put('/', orderUpdateValidation, ordersController.update);
+ordersRouter.put('/:order_id', orderUpdateValidation, ordersController.update);
 
 ordersRouter.patch(
   '/purchase_invoice',

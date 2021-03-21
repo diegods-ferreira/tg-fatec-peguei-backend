@@ -53,8 +53,8 @@ export default class OrdersController {
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
+    const { order_id } = request.params;
     const {
-      id,
       deliveryman_id,
       requester_id,
       pickup_date,
@@ -75,7 +75,7 @@ export default class OrdersController {
     const updateOrder = container.resolve(UpdateOrderService);
 
     const order = await updateOrder.execute({
-      id,
+      id: order_id,
       deliveryman_id,
       requester_id,
       pickup_date,
