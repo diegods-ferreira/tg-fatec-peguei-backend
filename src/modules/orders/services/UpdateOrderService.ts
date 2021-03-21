@@ -51,7 +51,7 @@ class UpdateOrderService {
     delivery_longitude,
     trip_id,
   }: IRequest): Promise<Order> {
-    const order = await this.ordersRepository.findById(id);
+    const order = await this.ordersRepository.findById(id, false);
 
     if (!order) {
       throw new AppError('Order not found');
@@ -84,7 +84,13 @@ class UpdateOrderService {
       `@Peguei!:user-orders-list:${requester_id}`,
     );
 
-    return order;
+    const updatedOrder = await this.ordersRepository.findById(id);
+
+    if (!updatedOrder) {
+      throw new AppError('Order not found');
+    }
+
+    return updatedOrder;
   }
 }
 

@@ -72,6 +72,12 @@ const orderUpdateValidation = celebrate({
   },
 });
 
+const orderDeliverymanUpdateValidation = celebrate({
+  [Segments.BODY]: {
+    deliveryman_id: Joi.string().required(),
+  },
+});
+
 const orderDeleteValidation = celebrate({
   [Segments.PARAMS]: {
     order_id: Joi.string().required(),
@@ -106,6 +112,7 @@ export {
   orderDetailsSearchValidation,
   orderCreationValidation,
   orderUpdateValidation,
+  orderDeliverymanUpdateValidation,
   orderDeleteValidation,
   itemSearchValidation,
   itemUpdateValidation,

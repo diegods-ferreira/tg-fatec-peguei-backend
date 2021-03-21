@@ -11,15 +11,18 @@ import {
   orderDetailsSearchValidation,
   orderSearchValidation,
   orderUpdateValidation,
+  orderDeliverymanUpdateValidation,
   orderDeleteValidation,
 } from '../middlewares/validations/request.validations';
 import OrdersAsDeliverymanController from '../controllers/OrdersAsDeliverymanController';
+import OrderDeliverymanController from '../controllers/OrderDeliverymanController';
 
 const ordersRouter = Router();
 const ordersController = new OrdersController();
 const orderPurchaseInvoiceController = new OrderPurchaseInvoiceController();
 const userOrdersController = new UserOrdersController();
 const ordersAsDeliverymanController = new OrdersAsDeliverymanController();
+const orderDeliverymanController = new OrderDeliverymanController();
 
 const upload = multer(uploadConfig.multer);
 
@@ -47,6 +50,12 @@ ordersRouter.delete(
 ordersRouter.post('/', orderCreationValidation, ordersController.create);
 
 ordersRouter.put('/:order_id', orderUpdateValidation, ordersController.update);
+
+ordersRouter.patch(
+  '/:order_id',
+  orderDeliverymanUpdateValidation,
+  orderDeliverymanController.update,
+);
 
 ordersRouter.patch(
   '/purchase_invoice',

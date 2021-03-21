@@ -25,14 +25,14 @@ class Order {
   @Column()
   deliveryman_id: string;
 
-  @ManyToOne(() => User, user => user.orders_as_deliveryman, { eager: true })
+  @ManyToOne(() => User, user => user.orders_as_deliveryman)
   @JoinColumn({ name: 'deliveryman_id' })
   deliveryman: User;
 
   @Column()
   requester_id: string;
 
-  @ManyToOne(() => User, user => user.orders_as_requester, { eager: true })
+  @ManyToOne(() => User, user => user.orders_as_requester)
   @JoinColumn({ name: 'requester_id' })
   requester: User;
 
@@ -98,7 +98,7 @@ class Order {
   })
   items: Item[];
 
-  @ManyToOne(() => Trip, trip => trip.orders, { eager: true })
+  @ManyToOne(() => Trip, trip => trip.orders)
   @JoinColumn({ name: 'trip_id' })
   trip: Trip[];
 

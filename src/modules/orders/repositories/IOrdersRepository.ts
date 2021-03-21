@@ -34,7 +34,10 @@ export default interface IOrdersRepository {
    * Finds an order by it's unique ID
    * @param order_id order id
    */
-  findById(order_id: string): Promise<Order | undefined>;
+  findById(
+    order_id: string,
+    showRelations?: boolean,
+  ): Promise<Order | undefined>;
 
   /**
    * Finds the orders of an specific user

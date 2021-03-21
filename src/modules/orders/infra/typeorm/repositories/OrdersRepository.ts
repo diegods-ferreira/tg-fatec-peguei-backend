@@ -1,5 +1,4 @@
-import { DeleteResult, getRepository, Repository } from 'typeorm';
-
+import { getRepository, Repository } from 'typeorm';
 import IOrdersRepository from '@modules/orders/repositories/IOrdersRepository';
 import IFindAllOrdersDTO from '@modules/orders/dtos/IFindAllOrdersDTO';
 import ICreateOrderDTO from '@modules/orders/dtos/ICreateOrderDTO';
@@ -90,10 +89,22 @@ class OrdersRepository implements IOrdersRepository {
     return orders;
   }
 
-  public async findById(order_id: string): Promise<Order | undefined> {
+  public async findById(
+    order_id: string,
+    showRelations = true,
+  ): Promise<Order | undefined> {
     const order = await this.ormRepository.findOne({
       where: { id: order_id },
-      relations: ['items', 'request_pickup_offers'],
+      ...(showRelations
+        ? {
+            relations: [
+              'items',
+              'request_pickup_offers',
+              'requester',
+              'deliveryman',
+            ],
+          }
+        : {}),
     });
 
     return order;
@@ -102,7 +113,7 @@ class OrdersRepository implements IOrdersRepository {
   public async findByUserId(user_id: string): Promise<Order[]> {
     const orders = await this.ormRepository.find({
       where: { requester_id: user_id },
-      relations: ['items'],
+      relations: ['items', 'request_pickup_offers', 'requester', 'deliveryman'],
       order: {
         created_at: 'DESC',
       },
@@ -114,7 +125,7 @@ class OrdersRepository implements IOrdersRepository {
   public async findByDeliverymanId(deliveryman_id: string): Promise<Order[]> {
     const orders = await this.ormRepository.find({
       where: { deliveryman_id },
-      relations: ['items'],
+      relations: ['items', 'request_pickup_offers', 'requester', 'deliveryman'],
       order: {
         created_at: 'DESC',
       },
