@@ -3,6 +3,7 @@ import DeleteRequestPickupOfferService from '@modules/request_pickup_offers/serv
 import GetRequestPickupOfferByIdService from '@modules/request_pickup_offers/services/GetRequestPickupOfferByIdService';
 import ListAllRequestPickupOffersOfAnOrderService from '@modules/request_pickup_offers/services/ListAllRequestPickupOffersOfAnOrderService';
 import UpdateRequestPickupOfferService from '@modules/request_pickup_offers/services/UpdateRequestPickupOfferService';
+import { classToClass } from 'class-transformer';
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
@@ -36,7 +37,7 @@ export default class RequestPickupOfferController {
       { order_id },
     );
 
-    return response.json(requestPickupOffers);
+    return response.json(classToClass(requestPickupOffers));
   }
 
   public async show(request: Request, response: Response): Promise<Response> {
@@ -51,7 +52,7 @@ export default class RequestPickupOfferController {
       deliveryman_id,
     });
 
-    return response.json(requestPickupOffer);
+    return response.json(classToClass(requestPickupOffer));
   }
 
   public async delete(request: Request, response: Response): Promise<Response> {
