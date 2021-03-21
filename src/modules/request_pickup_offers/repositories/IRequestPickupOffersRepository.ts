@@ -1,5 +1,5 @@
 import ICreateRequestPickupOfferDTO from '../dtos/ICreateRequestPickupOfferDTO';
-import RequestPickupOffer from '../infra/typeorm/schemas/RequestPickupOffer';
+import RequestPickupOffer from '../infra/typeorm/entities/RequestPickupOffer';
 
 export default interface IRequestPickupOffersRepository {
   create(data: ICreateRequestPickupOfferDTO): Promise<RequestPickupOffer>;

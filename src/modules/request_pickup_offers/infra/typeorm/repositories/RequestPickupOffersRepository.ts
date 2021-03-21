@@ -1,13 +1,13 @@
 import ICreateRequestPickupOfferDTO from '@modules/request_pickup_offers/dtos/ICreateRequestPickupOfferDTO';
 import IRequestPickupOffersRepository from '@modules/request_pickup_offers/repositories/IRequestPickupOffersRepository';
-import { getMongoRepository, MongoRepository } from 'typeorm';
-import RequestPickupOffer from '../schemas/RequestPickupOffer';
+import { getRepository, Repository } from 'typeorm';
+import RequestPickupOffer from '../entities/RequestPickupOffer';
 
 class RequestPickupOffersRepository implements IRequestPickupOffersRepository {
-  private ormRepository: MongoRepository<RequestPickupOffer>;
+  private ormRepository: Repository<RequestPickupOffer>;
 
   constructor() {
-    this.ormRepository = getMongoRepository(RequestPickupOffer, 'mongo');
+    this.ormRepository = getRepository(RequestPickupOffer);
   }
 
   public async create({

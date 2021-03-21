@@ -14,6 +14,7 @@ import {
 } from 'typeorm';
 import Trip from '@modules/trips/infra/typeorm/entities/Trip';
 import Chat from '@modules/chats/infra/typeorm/entities/Chat';
+import RequestPickupOffer from '@modules/request_pickup_offers/infra/typeorm/entities/RequestPickupOffer';
 import Item from './Item';
 
 @Entity('orders')
@@ -103,6 +104,15 @@ class Order {
 
   @OneToOne(() => Chat, chat => chat.order)
   chat: Chat;
+
+  @OneToMany(
+    () => RequestPickupOffer,
+    requestPickupOffer => requestPickupOffer.order,
+    {
+      cascade: true,
+    },
+  )
+  request_pickup_offers: RequestPickupOffer[];
 
   @Expose({ name: 'purchase_invoice_url' })
   getPurchaseInvoiceUrl(): string | null {

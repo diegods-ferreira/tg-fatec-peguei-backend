@@ -44,6 +44,10 @@ class OrdersRepository implements IOrdersRepository {
         )
         .leftJoinAndSelect('orders.requester', 'requester')
         .leftJoinAndSelect('orders.deliveryman', 'deliveryman')
+        .leftJoinAndSelect(
+          'orders.request_pickup_offers',
+          'request_pickup_offers',
+        )
         .where(`orders.requester_id <> '${except_user_id}'`)
         .andWhere(
           `getdistance(orders.pickup_latitude, orders.pickup_longitude, ${user_location.latitude}, ${user_location.longitude}) <= ${distance}`,
@@ -70,6 +74,10 @@ class OrdersRepository implements IOrdersRepository {
         )
         .leftJoinAndSelect('orders.requester', 'requester')
         .leftJoinAndSelect('orders.deliveryman', 'deliveryman')
+        .leftJoinAndSelect(
+          'orders.request_pickup_offers',
+          'request_pickup_offers',
+        )
         .where(
           `getdistance(orders.pickup_latitude, orders.pickup_longitude, ${user_location.latitude}, ${user_location.longitude}) <= ${distance}`,
         )

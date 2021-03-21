@@ -1,5 +1,5 @@
 import { inject, injectable } from 'tsyringe';
-import RequestPickupOffer from '../infra/typeorm/schemas/RequestPickupOffer';
+import RequestPickupOffer from '../infra/typeorm/entities/RequestPickupOffer';
 import IRequestPickupOffersRepository from '../repositories/IRequestPickupOffersRepository';
 
 interface IRequest {
