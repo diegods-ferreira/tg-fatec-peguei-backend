@@ -7,6 +7,7 @@ import IOrdersRepository from '../repositories/IOrdersRepository';
 interface IRequest {
   id: string;
   deliveryman_id: string;
+  user_id: string;
 }
 
 @injectable()
@@ -19,7 +20,7 @@ class SaveNewDeliverymanToOrderService {
     private cacheProvider: ICacheProvider,
   ) {}
 
-  async execute({ id, deliveryman_id }: IRequest): Promise<Order> {
+  async execute({ id, deliveryman_id, user_id }: IRequest): Promise<Order> {
     const order = await this.ordersRepository.findById(id, false);
 
     if (!order) {
@@ -37,13 +38,9 @@ class SaveNewDeliverymanToOrderService {
       `@Peguei!:user-orders-as-deliveryman-list:${deliveryman_id}`,
     );
 
-    const updatedOrder = await this.ordersRepository.findById(id);
+    await this.cacheProvider.invalidate(`@Peguei!:user-orders-list:${user_id}`);
 
-    if (!updatedOrder) {
-      throw new AppError('Order not found');
-    }
-
-    return updatedOrder;
+    return order;
   }
 }
 

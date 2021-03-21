@@ -5,6 +5,7 @@ import SaveNewDeliverymanToOrderService from '@modules/orders/services/SaveNewDe
 
 export default class OrderDeliverymanController {
   public async update(request: Request, response: Response): Promise<Response> {
+    const user_id = request.user.id;
     const { order_id } = request.params;
     const { deliveryman_id } = request.body;
 
@@ -15,6 +16,7 @@ export default class OrderDeliverymanController {
     const order = await saveNewDeliverymanToOrder.execute({
       id: order_id,
       deliveryman_id,
+      user_id,
     });
 
     return response.json(classToClass(order));
