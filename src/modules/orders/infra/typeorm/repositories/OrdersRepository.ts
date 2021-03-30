@@ -52,6 +52,7 @@ class OrdersRepository implements IOrdersRepository {
           `getdistance(orders.pickup_latitude, orders.pickup_longitude, ${user_location.latitude}, ${user_location.longitude}) <= ${distance}`,
         )
         .andWhere(`orders.created_at <= '${formattedDate}'`)
+        .andWhere('orders.status = 1')
         .orderBy('distance_from_user', 'ASC')
         .take(10)
         .skip(skip)
@@ -81,6 +82,7 @@ class OrdersRepository implements IOrdersRepository {
           `getdistance(orders.pickup_latitude, orders.pickup_longitude, ${user_location.latitude}, ${user_location.longitude}) <= ${distance}`,
         )
         .andWhere(`orders.created_at <= '${formattedDate}'`)
+        .andWhere('orders.status = 1')
         .orderBy('distance_from_user', 'ASC')
         .take(10)
         .skip(skip)
