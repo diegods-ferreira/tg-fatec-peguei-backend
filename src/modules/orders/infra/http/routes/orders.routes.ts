@@ -52,7 +52,7 @@ ordersRouter.post('/', orderCreationValidation, ordersController.create);
 ordersRouter.put('/:order_id', orderUpdateValidation, ordersController.update);
 
 ordersRouter.patch(
-  '/:order_id',
+  '/deliveryman/:order_id',
   orderDeliverymanUpdateValidation,
   orderDeliverymanController.update,
 );
