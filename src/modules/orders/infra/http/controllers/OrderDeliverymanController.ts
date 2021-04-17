@@ -22,7 +22,7 @@ export default class OrderDeliverymanController {
 
     const createChat = container.resolve(CreateChatService);
 
-    createChat.execute({
+    await createChat.execute({
       order_id,
       deliveryman_id,
       requester_id: user_id,
