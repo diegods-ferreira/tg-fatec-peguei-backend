@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import { classToClass } from 'class-transformer';
 import SaveNewDeliverymanToOrderService from '@modules/orders/services/SaveNewDeliverymanToOrderService';
+import CreateChatService from '@modules/chats/services/CreateChatService';
 
 export default class OrderDeliverymanController {
   public async update(request: Request, response: Response): Promise<Response> {
@@ -17,6 +18,14 @@ export default class OrderDeliverymanController {
       id: order_id,
       deliveryman_id,
       user_id,
+    });
+
+    const createChat = container.resolve(CreateChatService);
+
+    createChat.execute({
+      order_id,
+      deliveryman_id,
+      requester_id: user_id,
     });
 
     return response.json(classToClass(order));
