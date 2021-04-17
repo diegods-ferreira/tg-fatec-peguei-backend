@@ -104,6 +104,7 @@ class OrdersRepository implements IOrdersRepository {
               'request_pickup_offers',
               'requester',
               'deliveryman',
+              'chat',
             ],
           }
         : {}),
