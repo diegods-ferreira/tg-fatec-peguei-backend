@@ -42,9 +42,7 @@ class CreateTripService {
       return_date,
     });
 
-    await this.cacheProvider.invalidatePrefix(
-      `@Peguei!:user-trips-list:${user_id}`,
-    );
+    await this.cacheProvider.invalidate(`@Peguei!:user-trips-list:${user_id}`);
 
     return trip;
   }

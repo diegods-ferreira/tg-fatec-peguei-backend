@@ -36,9 +36,7 @@ class DeleteOrderService {
       throw new AppError('Internal server error', 500);
     }
 
-    await this.cacheProvider.invalidatePrefix(
-      `@Peguei!:user-orders-list:${user_id}`,
-    );
+    await this.cacheProvider.invalidate(`@Peguei!:user-orders-list:${user_id}`);
   }
 }
 

@@ -75,7 +75,7 @@ class CreateOrderService {
       items,
     });
 
-    await this.cacheProvider.invalidatePrefix(
+    await this.cacheProvider.invalidate(
       `@Peguei!:user-orders-list:${requester_id}`,
     );
 
