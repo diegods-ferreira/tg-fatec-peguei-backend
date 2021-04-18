@@ -30,6 +30,9 @@ import ChatsRepository from '@modules/chats/infra/typeorm/repositories/ChatsRepo
 import IChatMessagesRepository from '@modules/chats/repositories/IChatMessagesRepository';
 import ChatMessagesRepository from '@modules/chats/infra/typeorm/repositories/ChatMessagesRepository';
 
+import IRatingRepository from '@modules/rating/repositories/IRatingRepository';
+import RatingRepository from '@modules/rating/infra/typeorm/repositories/RatingRepository';
+
 container.registerSingleton<IUsersRepository>(
   'UsersRepository',
   UsersRepository,
@@ -73,4 +76,9 @@ container.registerSingleton<IChatsRepository>(
 container.registerSingleton<IChatMessagesRepository>(
   'ChatMessagesRepository',
   ChatMessagesRepository,
+);
+
+container.registerSingleton<IRatingRepository>(
+  'RatingRepository',
+  RatingRepository,
 );
