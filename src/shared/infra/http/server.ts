@@ -1,10 +1,10 @@
 import 'reflect-metadata';
 import 'dotenv/config';
 
-import express, { Request, Response } from 'express';
+import express, { NextFunction, Request, Response } from 'express';
+import 'express-async-errors';
 import cors from 'cors';
 import { errors } from 'celebrate';
-import 'express-async-errors';
 import AppError from '@shared/errors/AppError';
 import uploadConfig from '@config/upload';
 import { createServer } from 'http';
@@ -32,21 +32,23 @@ app.use(rateLimiter);
 app.use(routes);
 app.use(errors());
 
-app.use((err: Error, request: Request, response: Response) => {
-  console.error(err);
+app.use(
+  (err: Error, request: Request, response: Response, next: NextFunction) => {
+    console.error(err);
 
-  if (err instanceof AppError) {
-    return response.status(err.statusCode).json({
+    if (err instanceof AppError) {
+      return response.status(err.statusCode).json({
+        status: 'error',
+        message: err.message,
+      });
+    }
+
+    return response.status(500).json({
       status: 'error',
-      message: err.message,
+      message: 'Internal server error.',
     });
-  }
-
-  return response.status(500).json({
-    status: 'error',
-    message: 'Internal server error.',
-  });
-});
+  },
+);
 
 io.on('connection', (socket: socketIo.Socket) => {
   handleWebsocketConnection(io, socket);
