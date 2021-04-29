@@ -70,6 +70,7 @@ export default class OrdersController {
       delivery_latitude,
       delivery_longitude,
       trip_id,
+      status,
     } = request.body;
 
     const updateOrder = container.resolve(UpdateOrderService);
@@ -91,6 +92,7 @@ export default class OrdersController {
       delivery_latitude,
       delivery_longitude,
       trip_id,
+      status: Number(status),
     });
 
     return response.json(classToClass(order));

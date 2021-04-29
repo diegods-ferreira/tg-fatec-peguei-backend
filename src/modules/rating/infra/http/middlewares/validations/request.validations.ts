@@ -3,7 +3,6 @@ import { celebrate, Joi, Segments } from 'celebrate';
 const rateCreationValidation = celebrate({
   [Segments.BODY]: {
     order_id: Joi.string().required(),
-    requester_id: Joi.string().required(),
     deliveryman_id: Joi.string().required(),
     rate: Joi.number().required(),
     comment: Joi.string().required(),

@@ -65,6 +65,18 @@ class User {
   @Column()
   show_phone: boolean;
 
+  @Column('decimal', {
+    transformer: {
+      to(value) {
+        return value;
+      },
+      from(value) {
+        return parseFloat(value);
+      },
+    },
+  })
+  rating_average: boolean;
+
   @OneToMany(() => Trip, trip => trip.user, {
     cascade: true,
   })

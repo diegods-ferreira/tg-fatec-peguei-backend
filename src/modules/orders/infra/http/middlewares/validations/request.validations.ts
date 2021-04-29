@@ -53,7 +53,6 @@ const orderCreationValidation = celebrate({
 
 const orderUpdateValidation = celebrate({
   [Segments.BODY]: {
-    id: Joi.string().required(),
     deliveryman_id: Joi.string().optional(),
     requester_id: Joi.string().required(),
     pickup_date: Joi.date().required(),
@@ -68,7 +67,9 @@ const orderUpdateValidation = celebrate({
     delivery_state: Joi.string().required(),
     delivery_latitude: Joi.number().required(),
     delivery_longitude: Joi.number().required(),
-    trip_id: Joi.string().optional(),
+    delivery_value: Joi.number().optional().allow(null),
+    trip_id: Joi.string().optional().allow(null, ''),
+    status: Joi.number().optional().allow(null),
   },
 });
 

@@ -21,6 +21,7 @@ interface IRequest {
   delivery_latitude: number;
   delivery_longitude: number;
   trip_id?: string;
+  status?: number;
 }
 
 @injectable()
@@ -50,6 +51,7 @@ class UpdateOrderService {
     delivery_latitude,
     delivery_longitude,
     trip_id,
+    status,
   }: IRequest): Promise<Order> {
     const order = await this.ordersRepository.findById(id, false);
 
@@ -76,6 +78,7 @@ class UpdateOrderService {
       delivery_state,
       delivery_latitude,
       delivery_longitude,
+      ...(status ? { status } : {}),
     });
 
     await this.ordersRepository.save(order);

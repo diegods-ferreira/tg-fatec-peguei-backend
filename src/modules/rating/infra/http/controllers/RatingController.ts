@@ -6,13 +6,8 @@ import { container } from 'tsyringe';
 
 export default class RatingController {
   public async create(request: Request, response: Response): Promise<Response> {
-    const {
-      order_id,
-      requester_id,
-      deliveryman_id,
-      rate,
-      comment,
-    } = request.body;
+    const requester_id = request.user.id;
+    const { order_id, deliveryman_id, rate, comment } = request.body;
 
     const createRate = container.resolve(CreateRateService);
 
