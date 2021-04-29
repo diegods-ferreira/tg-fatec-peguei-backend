@@ -32,8 +32,8 @@ class RatingRepository implements IRatingRepository {
     return rate;
   }
 
-  public async findByOrderId(order_id: string): Promise<Rate[] | undefined> {
-    const rating = await this.ormRepository.find({
+  public async findByOrderId(order_id: string): Promise<Rate | undefined> {
+    const rating = await this.ormRepository.findOne({
       where: { order_id },
       order: { created_at: 'DESC' },
     });
@@ -41,9 +41,7 @@ class RatingRepository implements IRatingRepository {
     return rating;
   }
 
-  public async findByRequesterId(
-    requester_id: string,
-  ): Promise<Rate[] | undefined> {
+  public async findByRequesterId(requester_id: string): Promise<Rate[]> {
     const rating = await this.ormRepository.find({
       where: { requester_id },
       order: { created_at: 'DESC' },
@@ -52,9 +50,7 @@ class RatingRepository implements IRatingRepository {
     return rating;
   }
 
-  public async findByDeliverymanId(
-    deliveryman_id: string,
-  ): Promise<Rate[] | undefined> {
+  public async findByDeliverymanId(deliveryman_id: string): Promise<Rate[]> {
     const rating = await this.ormRepository.find({
       where: { deliveryman_id },
       order: { created_at: 'DESC' },

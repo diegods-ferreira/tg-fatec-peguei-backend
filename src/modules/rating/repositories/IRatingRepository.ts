@@ -6,7 +6,7 @@ export default interface IRatingRepository {
   save(rate: Rate): Promise<Rate>;
   delete(rate: Rate): Promise<Rate>;
   findById(id: string): Promise<Rate | undefined>;
-  findByOrderId(order_id: string): Promise<Rate[] | undefined>;
-  findByRequesterId(requester_id: string): Promise<Rate[] | undefined>;
-  findByDeliverymanId(deliveryman_id: string): Promise<Rate[] | undefined>;
+  findByOrderId(order_id: string): Promise<Rate | undefined>;
+  findByRequesterId(requester_id: string): Promise<Rate[]>;
+  findByDeliverymanId(deliveryman_id: string): Promise<Rate[]>;
 }
