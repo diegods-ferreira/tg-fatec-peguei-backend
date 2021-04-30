@@ -1,4 +1,5 @@
 import FindRatingByDeliverymanIdService from '@modules/rating/services/FindByDeliverymanIdService';
+import { classToClass } from 'class-transformer';
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
@@ -12,6 +13,6 @@ export default class DeliverymanRatingController {
 
     const rating = await findRatingByDeliverymanId.execute({ deliveryman_id });
 
-    return response.json(rating);
+    return response.json(classToClass(rating));
   }
 }

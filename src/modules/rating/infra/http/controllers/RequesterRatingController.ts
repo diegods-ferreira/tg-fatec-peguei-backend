@@ -1,4 +1,5 @@
 import FindRatingByRequesterIdService from '@modules/rating/services/FindRatingByRequesterIdService';
+import { classToClass } from 'class-transformer';
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
@@ -12,6 +13,6 @@ export default class RequesterRatingController {
 
     const rating = await findRatingByRequesterId.execute({ requester_id });
 
-    return response.json(rating);
+    return response.json(classToClass(rating));
   }
 }
