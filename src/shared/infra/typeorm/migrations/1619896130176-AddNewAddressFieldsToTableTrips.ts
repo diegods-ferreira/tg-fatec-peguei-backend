@@ -6,14 +6,6 @@ export default class AddNewAddressFieldsToTableTrips1619896130176
     await queryRunner.addColumn(
       'trips',
       new TableColumn({
-        name: 'destination_address',
-        type: 'varchar',
-      }),
-    );
-
-    await queryRunner.addColumn(
-      'trips',
-      new TableColumn({
         name: 'destination_city',
         type: 'varchar',
       }),
@@ -23,14 +15,6 @@ export default class AddNewAddressFieldsToTableTrips1619896130176
       'trips',
       new TableColumn({
         name: 'destination_state',
-        type: 'varchar',
-      }),
-    );
-
-    await queryRunner.addColumn(
-      'trips',
-      new TableColumn({
-        name: 'return_address',
         type: 'varchar',
       }),
     );
@@ -62,10 +46,8 @@ export default class AddNewAddressFieldsToTableTrips1619896130176
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropColumn('trips', 'destination_address');
     await queryRunner.dropColumn('trips', 'destination_city');
     await queryRunner.dropColumn('trips', 'destination_state');
-    await queryRunner.dropColumn('trips', 'return_address');
     await queryRunner.dropColumn('trips', 'return_city');
     await queryRunner.dropColumn('trips', 'return_state');
     await queryRunner.dropColumn('trips', 'status');
