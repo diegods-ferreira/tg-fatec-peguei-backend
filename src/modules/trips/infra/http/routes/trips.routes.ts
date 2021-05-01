@@ -23,6 +23,6 @@ tripsRouter.get('/:trip_id', tripDetailsSearchValidation, tripsController.show);
 
 tripsRouter.post('/', tripCreationValidation, tripsController.create);
 
-tripsRouter.put('/', tripUpdateValidation, tripsController.update);
+tripsRouter.put('/:id', tripUpdateValidation, tripsController.update);
 
 export default tripsRouter;

@@ -5,10 +5,10 @@ import ITripsRepository from '../repositories/ITripsRepository';
 
 interface IRequest {
   user_id: string;
-  destination: string;
-  return_location: string;
-  destination_latitude: number;
-  destination_longitude: number;
+  destination_city: string;
+  destination_state: string;
+  return_city: string;
+  return_state: string;
   departure_date: Date;
   return_date: Date;
 }
@@ -25,19 +25,19 @@ class CreateTripService {
 
   public async execute({
     user_id,
-    destination,
-    return_location,
-    destination_latitude,
-    destination_longitude,
+    destination_city,
+    destination_state,
+    return_city,
+    return_state,
     departure_date,
     return_date,
   }: IRequest): Promise<Trip> {
     const trip = await this.tripsRepository.create({
       user_id,
-      destination,
-      return_location,
-      destination_latitude,
-      destination_longitude,
+      destination_city,
+      destination_state,
+      return_city,
+      return_state,
       departure_date,
       return_date,
     });

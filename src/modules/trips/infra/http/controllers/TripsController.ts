@@ -9,10 +9,10 @@ export default class TripsController {
   public async create(request: Request, response: Response): Promise<Response> {
     const user_id = request.user.id;
     const {
-      destination,
-      return_location,
-      destination_latitude,
-      destination_longitude,
+      destination_city,
+      destination_state,
+      return_city,
+      return_state,
       departure_date,
       return_date,
     } = request.body;
@@ -21,10 +21,10 @@ export default class TripsController {
 
     const trip = await createTrip.execute({
       user_id,
-      destination,
-      return_location,
-      destination_latitude,
-      destination_longitude,
+      destination_city,
+      destination_state,
+      return_city,
+      return_state,
       departure_date,
       return_date,
     });
@@ -34,12 +34,12 @@ export default class TripsController {
 
   public async update(request: Request, response: Response): Promise<Response> {
     const user_id = request.user.id;
+    const { id } = request.params;
     const {
-      id,
-      destination,
-      return_location,
-      destination_latitude,
-      destination_longitude,
+      destination_city,
+      destination_state,
+      return_city,
+      return_state,
       departure_date,
       return_date,
     } = request.body;
@@ -49,10 +49,10 @@ export default class TripsController {
     const trip = await updateTrip.execute({
       id,
       user_id,
-      destination,
-      return_location,
-      destination_latitude,
-      destination_longitude,
+      destination_city,
+      destination_state,
+      return_city,
+      return_state,
       departure_date,
       return_date,
     });
@@ -62,17 +62,13 @@ export default class TripsController {
 
   public async index(request: Request, response: Response): Promise<Response> {
     const user_id = request.user.id;
-    const { user_latitude, user_longitude, distance, page } = request.query;
+    const { page } = request.query;
 
     const listTripsNearUser = container.resolve(ListTripsNearUserService);
 
     const trips = await listTripsNearUser.execute({
       user_id,
-      user_latitude: Number(user_latitude),
-      user_longitude: Number(user_longitude),
-      distance: Number(distance),
       page: Number(page) || 1,
-      date: new Date(),
     });
 
     return response.json(trips);

@@ -24,16 +24,19 @@ class Trip {
   user: User;
 
   @Column()
-  destination: string;
+  destination_city: string;
 
   @Column()
-  return_location: string;
+  destination_state: string;
 
-  @Column('decimal')
-  destination_latitude: number;
+  @Column()
+  return_city: string;
 
-  @Column('decimal')
-  destination_longitude: number;
+  @Column()
+  return_state: string;
+
+  @Column()
+  status: number;
 
   @Column()
   departure_date: Date;

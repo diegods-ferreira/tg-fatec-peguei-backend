@@ -2,7 +2,6 @@ import ICreateTripDTO from '@modules/trips/dtos/ICreateTripDTO';
 import IFindAllTripsDTO from '@modules/trips/dtos/IFindAllTripsDTO';
 import ITripsRepository from '@modules/trips/repositories/ITripsRepository';
 import { getRepository, Repository } from 'typeorm';
-import { format, addMinutes } from 'date-fns';
 import Trip from '../entities/Trip';
 
 class TripsRepository implements ITripsRepository {
@@ -26,26 +25,15 @@ class TripsRepository implements ITripsRepository {
 
   public async findAllTrips({
     except_user_id,
-    distance,
-    user_location,
     page,
-    date,
   }: IFindAllTripsDTO): Promise<Trip[]> {
     let trips;
     const skip = (page - 1) * 10;
-    const formattedDate = format(
-      addMinutes(date, date.getTimezoneOffset()),
-      'yyyy-MM-dd HH:mm:ss',
-    );
 
     if (except_user_id) {
       trips = await this.ormRepository
         .createQueryBuilder('trips')
         .select()
-        .addSelect(
-          `getdistance(orders.pickup_latitude, orders.pickup_longitude, ${user_location.latitude}, ${user_location.longitude})`,
-          'distance_from_user',
-        )
         .leftJoinAndSelect('trips.user', 'user')
         .leftJoinAndSelect('trips.orders', 'orders')
         .leftJoinAndSelect('orders.items', 'items')
@@ -58,11 +46,8 @@ class TripsRepository implements ITripsRepository {
         .leftJoinAndSelect('orders.requester', 'requester')
         .leftJoinAndSelect('orders.deliveryman', 'deliveryman')
         .where(`trips.user_id <> '${except_user_id}'`)
-        .andWhere(
-          `getdistance(trips.destination_latitude, trips.destination_longitude, ${user_location.latitude}, ${user_location.longitude}) <= ${distance}`,
-        )
-        .andWhere(`trips.created_at <= '${formattedDate}'`)
-        .orderBy('distance_from_user')
+        .andWhere('trips.status = 1')
+        .orderBy('trips.departure_date')
         .take(10)
         .skip(skip)
         .getMany();
@@ -70,10 +55,6 @@ class TripsRepository implements ITripsRepository {
       trips = await this.ormRepository
         .createQueryBuilder('trips')
         .select()
-        .addSelect(
-          `getdistance(orders.pickup_latitude, orders.pickup_longitude, ${user_location.latitude}, ${user_location.longitude})`,
-          'distance_from_user',
-        )
         .leftJoinAndSelect('trips.user', 'user')
         .leftJoinAndSelect('trips.orders', 'orders')
         .leftJoinAndSelect('orders.items', 'items')
@@ -85,11 +66,8 @@ class TripsRepository implements ITripsRepository {
         )
         .leftJoinAndSelect('orders.requester', 'requester')
         .leftJoinAndSelect('orders.deliveryman', 'deliveryman')
-        .where(
-          `getdistance(trips.destination_latitude, trips.destination_longitude, ${user_location.latitude}, ${user_location.longitude}) <= ${distance}`,
-        )
-        .andWhere(`trips.created_at <= '${formattedDate}'`)
-        .orderBy('distance_from_user')
+        .where('trips.status = 1')
+        .orderBy('trips.departure_date')
         .take(10)
         .skip(skip)
         .getMany();
