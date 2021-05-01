@@ -13,6 +13,7 @@ interface IRequest {
   return_state: string;
   departure_date: Date;
   return_date: Date;
+  status: number;
 }
 
 @injectable()
@@ -34,6 +35,7 @@ class UpdateTripService {
     return_state,
     departure_date,
     return_date,
+    status,
   }: IRequest): Promise<Trip> {
     const trip = await this.tripsRepository.findById(id);
 
@@ -48,6 +50,7 @@ class UpdateTripService {
       return_state,
       departure_date,
       return_date,
+      status,
     });
 
     await this.tripsRepository.save(trip);

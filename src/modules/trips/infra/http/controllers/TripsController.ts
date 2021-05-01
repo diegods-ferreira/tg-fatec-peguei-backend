@@ -42,6 +42,7 @@ export default class TripsController {
       return_state,
       departure_date,
       return_date,
+      status,
     } = request.body;
 
     const updateTrip = container.resolve(UpdateTripService);
@@ -55,6 +56,7 @@ export default class TripsController {
       return_state,
       departure_date,
       return_date,
+      status: Number(status),
     });
 
     return response.json(trip);

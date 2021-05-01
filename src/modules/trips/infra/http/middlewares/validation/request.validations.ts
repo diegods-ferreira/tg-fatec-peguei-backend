@@ -31,6 +31,7 @@ const tripUpdateValidation = celebrate({
     return_state: Joi.string().required(),
     departure_date: Joi.date().required(),
     return_date: Joi.date().required(),
+    status: Joi.number().required(),
   },
   [Segments.PARAMS]: {
     id: Joi.string().required(),
