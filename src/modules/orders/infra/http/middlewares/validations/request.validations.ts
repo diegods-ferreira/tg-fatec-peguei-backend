@@ -48,6 +48,7 @@ const orderCreationValidation = celebrate({
         }),
       )
       .required(),
+    status: Joi.number().optional(),
   },
 });
 

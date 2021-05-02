@@ -22,6 +22,7 @@ interface IRquest {
   delivery_longitude: number;
   trip_id?: string;
   items: Item[];
+  status?: number;
 }
 
 @injectable()
@@ -51,6 +52,7 @@ class CreateOrderService {
     delivery_longitude,
     trip_id,
     items,
+    status,
   }: IRquest): Promise<Order> {
     if (deliveryman_id && requester_id === deliveryman_id) {
       throw new AppError("You can't create an order to yourself");
@@ -73,6 +75,7 @@ class CreateOrderService {
       delivery_longitude,
       trip_id,
       items,
+      status,
     });
 
     await this.cacheProvider.invalidate(

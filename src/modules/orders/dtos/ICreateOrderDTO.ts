@@ -17,4 +17,5 @@ export default interface ICreateOrderDTO {
   delivery_longitude: number;
   trip_id?: string;
   items: Item[];
+  status?: number;
 }

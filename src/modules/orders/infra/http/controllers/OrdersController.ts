@@ -26,6 +26,7 @@ export default class OrdersController {
       delivery_longitude,
       trip_id,
       items,
+      status,
     } = request.body;
 
     const createOrder = container.resolve(CreateOrderService);
@@ -47,6 +48,7 @@ export default class OrdersController {
       delivery_longitude,
       trip_id,
       items,
+      status,
     });
 
     return response.json(classToClass(order));
