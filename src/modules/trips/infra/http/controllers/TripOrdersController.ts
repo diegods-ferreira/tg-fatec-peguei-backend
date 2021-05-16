@@ -1,4 +1,5 @@
 import ShowTripOrdersService from '@modules/trips/services/ShowTripOrdersService';
+import { classToClass } from 'class-transformer';
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
@@ -10,6 +11,6 @@ export default class TripOrdersController {
 
     const trip = await showTripOrdedrs.execute({ trip_id });
 
-    return response.json(trip);
+    return response.json(classToClass(trip));
   }
 }

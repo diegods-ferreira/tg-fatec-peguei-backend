@@ -1,4 +1,5 @@
 import ListUserTripsService from '@modules/trips/services/ListUserTripsService';
+import { classToClass } from 'class-transformer';
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
@@ -10,6 +11,6 @@ export default class UserTripsController {
 
     const trips = await listUserTrips.execute({ user_id });
 
-    return response.json(trips);
+    return response.json(classToClass(trips));
   }
 }

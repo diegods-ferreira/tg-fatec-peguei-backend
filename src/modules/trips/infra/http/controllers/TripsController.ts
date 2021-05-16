@@ -2,6 +2,7 @@ import CreateTripService from '@modules/trips/services/CreateTripService';
 import ListTripsNearUserService from '@modules/trips/services/ListTripsNearUserService';
 import ShowTripDetailsService from '@modules/trips/services/ShowTripDetailsService';
 import UpdateTripService from '@modules/trips/services/UpdateTripService';
+import { classToClass } from 'class-transformer';
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
@@ -29,7 +30,7 @@ export default class TripsController {
       return_date,
     });
 
-    return response.json(trip);
+    return response.json(classToClass(trip));
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
@@ -59,7 +60,7 @@ export default class TripsController {
       status: Number(status),
     });
 
-    return response.json(trip);
+    return response.json(classToClass(trip));
   }
 
   public async index(request: Request, response: Response): Promise<Response> {
@@ -73,7 +74,7 @@ export default class TripsController {
       page: Number(page) || 1,
     });
 
-    return response.json(trips);
+    return response.json(classToClass(trips));
   }
 
   public async show(request: Request, response: Response): Promise<Response> {
@@ -83,6 +84,6 @@ export default class TripsController {
 
     const trip = await showTripDetails.execute({ trip_id });
 
-    return response.json(trip);
+    return response.json(classToClass(trip));
   }
 }
