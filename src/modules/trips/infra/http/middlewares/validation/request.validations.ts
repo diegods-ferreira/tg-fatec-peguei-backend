@@ -12,6 +12,12 @@ const tripDetailsSearchValidation = celebrate({
   },
 });
 
+const tripOrdersSearchValidation = celebrate({
+  [Segments.PARAMS]: {
+    trip_id: Joi.string().required(),
+  },
+});
+
 const tripCreationValidation = celebrate({
   [Segments.BODY]: {
     destination_city: Joi.string().required(),
@@ -43,4 +49,5 @@ export {
   tripDetailsSearchValidation,
   tripCreationValidation,
   tripUpdateValidation,
+  tripOrdersSearchValidation,
 };

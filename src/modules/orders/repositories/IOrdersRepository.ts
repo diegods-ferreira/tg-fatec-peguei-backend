@@ -13,4 +13,5 @@ export default interface IOrdersRepository {
   ): Promise<Order | undefined>;
   findByUserId(user_id: string): Promise<Order[]>;
   findByDeliverymanId(deliveryman_id: string): Promise<Order[]>;
+  findByTripId(trip_id: string): Promise<Order[]>;
 }

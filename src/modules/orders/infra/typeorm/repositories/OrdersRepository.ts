@@ -137,6 +137,18 @@ class OrdersRepository implements IOrdersRepository {
     return orders;
   }
 
+  public async findByTripId(trip_id: string): Promise<Order[]> {
+    const orders = await this.ormRepository.find({
+      where: { trip_id },
+      relations: ['items', 'request_pickup_offers', 'requester', 'trip'],
+      order: {
+        created_at: 'DESC',
+      },
+    });
+
+    return orders;
+  }
+
   public async create(orderData: ICreateOrderDTO): Promise<Order> {
     const order = this.ormRepository.create(orderData);
 
