@@ -39,6 +39,9 @@ class Trip {
   status: number;
 
   @Column()
+  number: number;
+
+  @Column()
   departure_date: Date;
 
   @Column()
