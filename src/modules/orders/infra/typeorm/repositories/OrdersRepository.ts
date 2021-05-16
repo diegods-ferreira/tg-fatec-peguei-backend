@@ -34,6 +34,7 @@ class OrdersRepository implements IOrdersRepository {
           `getdistance(orders.pickup_latitude, orders.pickup_longitude, ${user_location.latitude}, ${user_location.longitude})`,
           'distance_from_user',
         )
+        .leftJoinAndSelect('orders.trip', 'trip')
         .leftJoinAndSelect('orders.items', 'items')
         .leftJoinAndSelect('items.category', 'items.category')
         .leftJoinAndSelect('items.weight_unit_measure', 'weight_unit_measure')
@@ -65,6 +66,7 @@ class OrdersRepository implements IOrdersRepository {
           `getdistance(orders.pickup_latitude, orders.pickup_longitude, ${user_location.latitude}, ${user_location.longitude})`,
           'distance_from_user',
         )
+        .leftJoinAndSelect('orders.trip', 'trip')
         .leftJoinAndSelect('orders.items', 'items')
         .leftJoinAndSelect('items.category', 'items.category')
         .leftJoinAndSelect('items.weight_unit_measure', 'weight_unit_measure')
@@ -105,6 +107,7 @@ class OrdersRepository implements IOrdersRepository {
               'requester',
               'deliveryman',
               'chat',
+              'trip',
             ],
           }
         : {}),
@@ -116,7 +119,13 @@ class OrdersRepository implements IOrdersRepository {
   public async findByUserId(user_id: string): Promise<Order[]> {
     const orders = await this.ormRepository.find({
       where: { requester_id: user_id },
-      relations: ['items', 'request_pickup_offers', 'requester', 'deliveryman'],
+      relations: [
+        'items',
+        'request_pickup_offers',
+        'requester',
+        'deliveryman',
+        'trip',
+      ],
       order: {
         created_at: 'DESC',
       },
@@ -128,7 +137,13 @@ class OrdersRepository implements IOrdersRepository {
   public async findByDeliverymanId(deliveryman_id: string): Promise<Order[]> {
     const orders = await this.ormRepository.find({
       where: { deliveryman_id },
-      relations: ['items', 'request_pickup_offers', 'requester', 'deliveryman'],
+      relations: [
+        'items',
+        'request_pickup_offers',
+        'requester',
+        'deliveryman',
+        'trip',
+      ],
       order: {
         created_at: 'DESC',
       },
