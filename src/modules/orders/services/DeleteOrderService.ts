@@ -1,3 +1,4 @@
+import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 import AppError from '@shared/errors/AppError';
 import { inject, injectable } from 'tsyringe';
@@ -8,6 +9,9 @@ class DeleteOrderService {
   constructor(
     @inject('OrdersRepository')
     private ordersRepository: IOrdersRepository,
+
+    @inject('UsersRepository')
+    private usersRepository: IUsersRepository,
 
     @inject('CacheProvider')
     private cacheProvider: ICacheProvider,
@@ -37,6 +41,16 @@ class DeleteOrderService {
     }
 
     await this.cacheProvider.invalidate(`@Peguei!:user-orders-list:${user_id}`);
+
+    const user = await this.usersRepository.findById(user_id);
+
+    if (!user) {
+      throw new AppError('User not found');
+    }
+
+    user.orders_total -= 1;
+
+    await this.usersRepository.save(user);
   }
 }
 

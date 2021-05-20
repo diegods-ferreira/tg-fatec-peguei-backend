@@ -65,6 +65,12 @@ class User {
   @Column()
   show_phone: boolean;
 
+  @Column()
+  orders_total: number;
+
+  @Column()
+  deliveries_total: number;
+
   @Column('decimal', {
     transformer: {
       to(value) {
@@ -75,7 +81,7 @@ class User {
       },
     },
   })
-  rating_average: boolean;
+  rating_average: number;
 
   @OneToMany(() => Trip, trip => trip.user, {
     cascade: true,

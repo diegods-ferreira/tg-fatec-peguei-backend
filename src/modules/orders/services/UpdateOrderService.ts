@@ -1,3 +1,4 @@
+import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 import AppError from '@shared/errors/AppError';
 import { inject, injectable } from 'tsyringe';
@@ -29,6 +30,9 @@ class UpdateOrderService {
   constructor(
     @inject('OrdersRepository')
     private ordersRepository: IOrdersRepository,
+
+    @inject('UsersRepository')
+    private usersRepository: IUsersRepository,
 
     @inject('CacheProvider')
     private cacheProvider: ICacheProvider,
@@ -91,6 +95,18 @@ class UpdateOrderService {
 
     if (!updatedOrder) {
       throw new AppError('Order not found');
+    }
+
+    if (status === 3) {
+      const user = await this.usersRepository.findById(requester_id);
+
+      if (!user) {
+        throw new AppError('User not found');
+      }
+
+      user.deliveries_total += 1;
+
+      await this.usersRepository.save(user);
     }
 
     return updatedOrder;
