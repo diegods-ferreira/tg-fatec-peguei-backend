@@ -14,11 +14,11 @@ interface IRequest {
   city: string;
   state: string;
   phone: string;
-  facebook: string;
-  instagram: string;
+  whatsapp: string;
+  telegram: string;
   show_email: boolean;
-  show_facebook: boolean;
-  show_instagram: boolean;
+  show_whatsapp: boolean;
+  show_telegram: boolean;
   show_phone: boolean;
   old_password?: string;
   password?: string;
@@ -44,11 +44,11 @@ class UpdateProfileService {
     city,
     state,
     phone,
-    facebook,
-    instagram,
+    whatsapp,
+    telegram,
     show_email,
-    show_facebook,
-    show_instagram,
+    show_whatsapp,
+    show_telegram,
     show_phone,
     password,
     old_password,
@@ -81,11 +81,11 @@ class UpdateProfileService {
     user.city = city;
     user.state = state;
     user.phone = phone;
-    user.facebook = facebook;
-    user.instagram = instagram;
+    user.whatsapp = whatsapp;
+    user.telegram = telegram;
     user.show_email = show_email;
-    user.show_facebook = show_facebook;
-    user.show_instagram = show_instagram;
+    user.show_whatsapp = show_whatsapp;
+    user.show_telegram = show_telegram;
     user.show_phone = show_phone;
 
     if (password && !old_password) {

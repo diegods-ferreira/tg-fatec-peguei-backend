@@ -27,10 +27,10 @@ class User {
   name: string;
 
   @Column()
-  facebook: string;
+  whatsapp: string;
 
   @Column()
-  instagram: string;
+  telegram: string;
 
   @Column()
   phone: string;
@@ -57,10 +57,10 @@ class User {
   show_email: boolean;
 
   @Column()
-  show_facebook: boolean;
+  show_whatsapp: boolean;
 
   @Column()
-  show_instagram: boolean;
+  show_telegram: boolean;
 
   @Column()
   show_phone: boolean;
