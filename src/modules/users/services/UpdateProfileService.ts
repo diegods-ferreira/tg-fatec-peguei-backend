@@ -20,6 +20,7 @@ interface IRequest {
   show_whatsapp: boolean;
   show_telegram: boolean;
   show_phone: boolean;
+  avatar?: string;
   old_password?: string;
   password?: string;
 }
@@ -50,6 +51,7 @@ class UpdateProfileService {
     show_whatsapp,
     show_telegram,
     show_phone,
+    avatar,
     password,
     old_password,
   }: IRequest): Promise<User> {
@@ -105,6 +107,10 @@ class UpdateProfileService {
       }
 
       user.password = await this.hashProvider.generateHash(password);
+    }
+
+    if (avatar) {
+      user.avatar = avatar;
     }
 
     return this.usersRepository.save(user);
