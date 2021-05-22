@@ -86,7 +86,7 @@ class CreateRateService {
       title: `${requester.name} te avaliou!`,
       body: `Você recebeu a nota ${rate} de ${requester.name}. Acesse o app para ver seu comentário!`,
       receiver: deliveryman_id,
-      deep_link: `user-rating/${deliveryman_id}`,
+      deep_link: `peguei://user-rating/${deliveryman_id}`,
     });
 
     return craetedRate;

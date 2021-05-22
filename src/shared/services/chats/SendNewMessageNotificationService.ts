@@ -33,7 +33,7 @@ class SendNewMessageNotificationService {
         title: `Nova mensagem de ${sender.name}`,
         body: message,
         receiver: receiver.id,
-        deep_link: `chats/join-room/${chat_id}`,
+        deep_link: `peguei://chats/join-room/${chat_id}`,
       });
     }
   }

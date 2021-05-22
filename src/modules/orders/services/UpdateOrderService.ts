@@ -115,8 +115,8 @@ class UpdateOrderService {
       await this.notificationProvider.sendNotification({
         title: `Pedido #${order.number}: Entregue!`,
         body: `${user.name} finalizou o pedido do qual você foi o entregador.`,
-        receiver: order.deliveryman.id,
-        deep_link: `order-details/${order.id}`,
+        receiver: order.deliveryman_id,
+        deep_link: `peguei://order-details/${order.id}`,
       });
     }
 

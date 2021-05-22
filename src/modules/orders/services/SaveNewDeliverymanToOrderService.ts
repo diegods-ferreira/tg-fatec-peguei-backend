@@ -56,7 +56,7 @@ class SaveNewDeliverymanToOrderService {
         title: `Você será o entregador do pedido #${order.number}!`,
         body: `${requester.name} te escolheu para fazer a entrega de seus produtos.`,
         receiver: deliveryman.id,
-        deep_link: `order-details/${order.id}`,
+        deep_link: `peguei://order-details/${order.id}`,
       });
     }
 
