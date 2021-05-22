@@ -1,5 +1,7 @@
+import ITripsRepository from '@modules/trips/repositories/ITripsRepository';
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
+import INotificationProvider from '@shared/container/providers/NotificationProvider/models/INotificationProvider';
 import AppError from '@shared/errors/AppError';
 import { inject, injectable } from 'tsyringe';
 import Item from '../infra/typeorm/entities/Item';
@@ -37,6 +39,12 @@ class CreateOrderService {
 
     @inject('CacheProvider')
     private cacheProvider: ICacheProvider,
+
+    @inject('TripsRepository')
+    private tripsRepository: ITripsRepository,
+
+    @inject('NotificationProvider')
+    private notificationProvider: INotificationProvider,
   ) {}
 
   public async execute({
@@ -95,6 +103,19 @@ class CreateOrderService {
     user.orders_total += 1;
 
     await this.usersRepository.save(user);
+
+    if (trip_id) {
+      const trip = await this.tripsRepository.findById(trip_id);
+
+      if (trip) {
+        await this.notificationProvider.sendNotification({
+          title: `Viagem #${trip.number}: Novo pedido recebido!`,
+          body: `${user.name} acabou de fazer um pedido para sua viagem.`,
+          receiver: trip.user_id,
+          deep_link: `peguei://trip-orders/${trip.id}`,
+        });
+      }
+    }
 
     return order;
   }
