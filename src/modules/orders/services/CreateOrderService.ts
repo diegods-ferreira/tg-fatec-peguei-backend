@@ -19,8 +19,6 @@ interface IRquest {
   delivery_address: string;
   delivery_city: string;
   delivery_state: string;
-  delivery_latitude: number;
-  delivery_longitude: number;
   trip_id?: string;
   items: Item[];
   status?: number;
@@ -52,8 +50,6 @@ class CreateOrderService {
     delivery_address,
     delivery_city,
     delivery_state,
-    delivery_latitude,
-    delivery_longitude,
     trip_id,
     items,
     status,
@@ -75,8 +71,6 @@ class CreateOrderService {
       delivery_address,
       delivery_city,
       delivery_state,
-      delivery_latitude,
-      delivery_longitude,
       trip_id,
       items,
       status,

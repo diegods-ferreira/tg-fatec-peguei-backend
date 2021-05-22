@@ -67,12 +67,6 @@ class Order {
   delivery_state: string;
 
   @Column('decimal')
-  delivery_latitude: number;
-
-  @Column('decimal')
-  delivery_longitude: number;
-
-  @Column('decimal')
   delivery_value: number;
 
   @Column()

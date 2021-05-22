@@ -28,8 +28,6 @@ const orderCreationValidation = celebrate({
     delivery_address: Joi.string().required(),
     delivery_city: Joi.string().required(),
     delivery_state: Joi.string().required(),
-    delivery_latitude: Joi.number().required(),
-    delivery_longitude: Joi.number().required(),
     trip_id: Joi.string().optional(),
     items: Joi.array()
       .items(
@@ -66,8 +64,6 @@ const orderUpdateValidation = celebrate({
     delivery_address: Joi.string().required(),
     delivery_city: Joi.string().required(),
     delivery_state: Joi.string().required(),
-    delivery_latitude: Joi.number().required(),
-    delivery_longitude: Joi.number().required(),
     delivery_value: Joi.number().optional().allow(null),
     trip_id: Joi.string().optional().allow(null, ''),
     status: Joi.number().optional().allow(null),
