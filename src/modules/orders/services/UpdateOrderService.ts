@@ -21,6 +21,7 @@ interface IRequest {
   delivery_state: string;
   trip_id?: string;
   status?: number;
+  purchase_invoice?: string;
 }
 
 @injectable()
@@ -52,6 +53,7 @@ class UpdateOrderService {
     delivery_state,
     trip_id,
     status,
+    purchase_invoice,
   }: IRequest): Promise<Order> {
     const order = await this.ordersRepository.findById(id, false);
 
@@ -78,6 +80,12 @@ class UpdateOrderService {
       delivery_state,
       ...(status ? { status } : {}),
     });
+
+    if (purchase_invoice) {
+      Object.assign(order, {
+        purchase_invoice,
+      });
+    }
 
     await this.ordersRepository.save(order);
 

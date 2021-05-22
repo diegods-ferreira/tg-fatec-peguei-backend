@@ -21,6 +21,7 @@ interface IRequest {
   show_telegram: boolean;
   show_phone: boolean;
   avatar?: string;
+  orders_total?: number;
   old_password?: string;
   password?: string;
 }
@@ -52,6 +53,7 @@ class UpdateProfileService {
     show_telegram,
     show_phone,
     avatar,
+    orders_total,
     password,
     old_password,
   }: IRequest): Promise<User> {
@@ -111,6 +113,10 @@ class UpdateProfileService {
 
     if (avatar) {
       user.avatar = avatar;
+    }
+
+    if (orders_total) {
+      user.orders_total = orders_total;
     }
 
     return this.usersRepository.save(user);
