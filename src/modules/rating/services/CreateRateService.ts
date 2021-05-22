@@ -1,5 +1,6 @@
 import IOrdersRepository from '@modules/orders/repositories/IOrdersRepository';
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
+import INotificationProvider from '@shared/container/providers/NotificationProvider/models/INotificationProvider';
 import AppError from '@shared/errors/AppError';
 import { inject, injectable } from 'tsyringe';
 import Rate from '../infra/typeorm/schemas/Rate';
@@ -24,6 +25,9 @@ class CreateRateService {
 
     @inject('OrdersRepository')
     private ordersRapository: IOrdersRepository,
+
+    @inject('NotificationProvider')
+    private notificationProvider: INotificationProvider,
   ) {}
 
   public async execute({
@@ -77,6 +81,13 @@ class CreateRateService {
 
       await this.usersRapository.save(deliveryman);
     }
+
+    await this.notificationProvider.sendNotification({
+      title: `${requester.name} te avaliou!`,
+      body: `Você recebeu a nota ${rate} de ${requester.name}. Acesse o app para ver seu comentário!`,
+      receiver: deliveryman_id,
+      deep_link: `user-rating/${deliveryman_id}`,
+    });
 
     return craetedRate;
   }
