@@ -3,6 +3,7 @@ import CreateChatMessageService from '@modules/chats/services/CreateChatMessageS
 import FindChatByIdService from '@modules/chats/services/FindChatByIdService';
 import AppError from '@shared/errors/AppError';
 import SaveLastChatMessageSentService from '@shared/services/chats/SaveLastChatMessageSentService';
+import SendNewMessageNotificationService from '@shared/services/chats/SendNewMessageNotificationService';
 import convertChatMessageSchemaToGifitedChatMessageObject from '@shared/utils/convertChatMessageSchemaToGifitedChatMessageObject';
 import socketIo from 'socket.io';
 import { container } from 'tsyringe';
@@ -48,6 +49,17 @@ async function sendNewMessage(
   );
 
   socket.broadcast.to(chatRoom).emit('receive-message', convertedMessage);
+
+  const sendNewMessageNotification = container.resolve(
+    SendNewMessageNotificationService,
+  );
+
+  await sendNewMessageNotification.execute({
+    chat_id: chat.id,
+    sender_id: newMessage.from,
+    receiver_id: newMessage.to,
+    message: newMessage.text,
+  });
 }
 
 export default function handleWebsocketConnection(
