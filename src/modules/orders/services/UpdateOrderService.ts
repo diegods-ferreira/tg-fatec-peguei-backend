@@ -1,5 +1,6 @@
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
+import INotificationProvider from '@shared/container/providers/NotificationProvider/models/INotificationProvider';
 import AppError from '@shared/errors/AppError';
 import { inject, injectable } from 'tsyringe';
 import Order from '../infra/typeorm/entities/Order';
@@ -36,6 +37,9 @@ class UpdateOrderService {
 
     @inject('CacheProvider')
     private cacheProvider: ICacheProvider,
+
+    @inject('NotificationProvider')
+    private notificationProvider: INotificationProvider,
   ) {}
 
   public async execute({
@@ -107,6 +111,13 @@ class UpdateOrderService {
       user.deliveries_total += 1;
 
       await this.usersRepository.save(user);
+
+      await this.notificationProvider.sendNotification({
+        title: `Pedido #${order.number}: Entregue!`,
+        body: `${user.name} finalizou o pedido do qual você foi o entregador.`,
+        receiver: order.deliveryman.id,
+        deep_link: `order-details/${order.id}`,
+      });
     }
 
     return updatedOrder;
