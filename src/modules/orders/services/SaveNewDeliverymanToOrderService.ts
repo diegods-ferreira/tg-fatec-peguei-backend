@@ -1,4 +1,6 @@
+import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
+import INotificationProvider from '@shared/container/providers/NotificationProvider/models/INotificationProvider';
 import AppError from '@shared/errors/AppError';
 import { inject, injectable } from 'tsyringe';
 import Order from '../infra/typeorm/entities/Order';
@@ -18,6 +20,12 @@ class SaveNewDeliverymanToOrderService {
 
     @inject('CacheProvider')
     private cacheProvider: ICacheProvider,
+
+    @inject('UsersRepository')
+    private usersRepository: IUsersRepository,
+
+    @inject('NotificationProvider')
+    private notificationProvider: INotificationProvider,
   ) {}
 
   async execute({ id, deliveryman_id, user_id }: IRequest): Promise<Order> {
@@ -39,6 +47,18 @@ class SaveNewDeliverymanToOrderService {
     );
 
     await this.cacheProvider.invalidate(`@Peguei!:user-orders-list:${user_id}`);
+
+    const requester = await this.usersRepository.findById(user_id);
+    const deliveryman = await this.usersRepository.findById(deliveryman_id);
+
+    if (requester && deliveryman) {
+      await this.notificationProvider.sendNotification({
+        title: `Você será o entregador do pedido #${order.number}!`,
+        body: `${requester.name} te escolheu para fazer a entrega de seus produtos.`,
+        receiver: deliveryman.id,
+        deep_link: `order-details/${order.id}`,
+      });
+    }
 
     return order;
   }
