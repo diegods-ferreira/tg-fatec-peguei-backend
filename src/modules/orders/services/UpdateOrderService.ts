@@ -20,10 +20,9 @@ interface IRequest {
   delivery_address: string;
   delivery_city: string;
   delivery_state: string;
-  delivery_latitude: number;
-  delivery_longitude: number;
   trip_id?: string;
   status?: number;
+  purchase_invoice?: string;
 }
 
 @injectable()
@@ -56,10 +55,9 @@ class UpdateOrderService {
     delivery_address,
     delivery_city,
     delivery_state,
-    delivery_latitude,
-    delivery_longitude,
     trip_id,
     status,
+    purchase_invoice,
   }: IRequest): Promise<Order> {
     const order = await this.ordersRepository.findById(id, false);
 
@@ -84,10 +82,14 @@ class UpdateOrderService {
       delivery_address,
       delivery_city,
       delivery_state,
-      delivery_latitude,
-      delivery_longitude,
       ...(status ? { status } : {}),
     });
+
+    if (purchase_invoice) {
+      Object.assign(order, {
+        purchase_invoice,
+      });
+    }
 
     await this.ordersRepository.save(order);
 

@@ -3,3 +3,7 @@ tmp/*
 !tmp/.gitkeep
 !tmp/uploads
 tmp/uploads/*
+!tmp/uploads/seed-*.jpg
+!tmp/uploads/seed-*.jpeg
+!tmp/uploads/seed-*.png
+!tmp/uploads/seed-*.pdf
