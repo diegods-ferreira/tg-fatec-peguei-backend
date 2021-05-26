@@ -36,7 +36,10 @@ class ChatsRepository implements IChatsRepository {
 
   public async findByUserId(user_id: string): Promise<Chat[] | undefined> {
     const chats = await this.ormRepository.find({
-      where: [{ deliveryman_id: user_id }, { requester_id: user_id }],
+      where: [
+        { deliveryman_id: user_id, active: true },
+        { requester_id: user_id, active: true },
+      ],
       order: { last_message_sent_at: 'DESC' },
     });
 

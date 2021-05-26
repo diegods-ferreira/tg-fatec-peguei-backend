@@ -1,8 +1,9 @@
+import SetOrderChatAsInactiveService from '@modules/chats/services/SetOrderChatAsInactiveService';
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 import INotificationProvider from '@shared/container/providers/NotificationProvider/models/INotificationProvider';
 import AppError from '@shared/errors/AppError';
-import { inject, injectable } from 'tsyringe';
+import { container, inject, injectable } from 'tsyringe';
 import Order from '../infra/typeorm/entities/Order';
 import IOrdersRepository from '../repositories/IOrdersRepository';
 
@@ -113,6 +114,12 @@ class UpdateOrderService {
       user.deliveries_total += 1;
 
       await this.usersRepository.save(user);
+
+      const setOrderChatAsInactive = container.resolve(
+        SetOrderChatAsInactiveService,
+      );
+
+      await setOrderChatAsInactive.execute({ order_id: order.id });
 
       await this.notificationProvider.sendNotification({
         title: `Pedido #${order.number}: Entregue!`,
