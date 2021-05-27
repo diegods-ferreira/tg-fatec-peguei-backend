@@ -43,7 +43,7 @@ export default {
   config: {
     disk: {},
     aws: {
-      bucket: 'app-gobarber-danilo-ferreira', // CRIAR UM BUCKET PARA O PEGUEI
+      bucket: 'app-peguei',
     },
   },
 } as IUploadConfig;
