@@ -105,7 +105,7 @@ class UpdateOrderService {
     }
 
     if (status === 3) {
-      const user = await this.usersRepository.findById(requester_id);
+      const user = await this.usersRepository.findById(order.deliveryman_id);
 
       if (!user) {
         throw new AppError('User not found');
