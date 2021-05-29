@@ -13,8 +13,8 @@ export default {
 
   defaults: {
     from: {
-      email: 'gobarber@daniloferreira.info',
-      name: 'Danilo Ferreira',
+      email: 'mail@peguei.com',
+      name: 'Peguei!',
     },
   },
 } as IMailConfig;
