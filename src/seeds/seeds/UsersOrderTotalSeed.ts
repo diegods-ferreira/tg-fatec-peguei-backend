@@ -8,271 +8,271 @@ class UsersOrderTotalSeed {
     const updateProfile = container.resolve(UpdateProfileService);
 
     const [
-      michael,
-      dwight,
-      angela,
-      kelly,
-      kevin,
-      stanley,
-      phyllis,
-      jim,
-      pam,
-      ryan,
+      cecilia,
+      noah,
+      heloise,
+      alexandre,
+      marcela,
+      levi,
+      benicio,
+      emanuelly,
+      cesar,
+      luiz,
     ] = users;
     const presentation =
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit.';
 
-    const updatedMichael = await updateProfile.execute({
-      user_id: michael.id,
+    const updatedCecilia = await updateProfile.execute({
+      user_id: cecilia.id,
       presentation,
       address: 'R. Cel. Benjamin da Costa Bueno, 166 - Santana',
       city: 'Pindamonhangaba',
       state: 'SP',
       phone: '12985742566',
       whatsapp: '12985742566',
-      telegram: michael.username,
+      telegram: cecilia.username,
       show_email: true,
       show_phone: true,
       show_telegram: true,
       show_whatsapp: true,
-      email: michael.email,
-      name: michael.name,
-      username: michael.username,
-      avatar: 'seed-user-michael.png',
+      email: cecilia.email,
+      name: cecilia.name,
+      username: cecilia.username,
+      avatar: 'seed-user-cecilia.jpeg',
       orders_total: orders.reduce((accumulator, currentValue) => {
-        return currentValue.requester_id === michael.id
+        return currentValue.requester_id === cecilia.id
           ? accumulator + 1
           : accumulator + 0;
       }, 0),
     });
 
-    const updatedDwight = await updateProfile.execute({
-      user_id: dwight.id,
+    const updatedNoah = await updateProfile.execute({
+      user_id: noah.id,
       presentation,
       address: 'R. Barão da Pedra Negra, 365 - Centro',
       city: 'Taubaté',
       state: 'SP',
       phone: '12956485426',
       whatsapp: '12956485426',
-      telegram: dwight.username,
+      telegram: noah.username,
       show_email: false,
       show_phone: true,
       show_telegram: false,
       show_whatsapp: true,
-      email: dwight.email,
-      name: dwight.name,
-      username: dwight.username,
-      avatar: 'seed-user-dwight.jpg',
+      email: noah.email,
+      name: noah.name,
+      username: noah.username,
+      avatar: 'seed-user-noah.jpeg',
       orders_total: orders.reduce((accumulator, currentValue) => {
-        return currentValue.requester_id === dwight.id
+        return currentValue.requester_id === noah.id
           ? accumulator + 1
           : accumulator + 0;
       }, 0),
     });
 
-    const updatedAngela = await updateProfile.execute({
-      user_id: angela.id,
+    const updatedHeloise = await updateProfile.execute({
+      user_id: heloise.id,
       presentation,
       address: 'Av. Osvaldo Aranha, 511 - Terra Nova',
       city: 'Taubaté',
       state: 'SP',
       phone: '129584725658',
       whatsapp: '129584725658',
-      telegram: angela.username,
+      telegram: heloise.username,
       show_email: true,
       show_phone: true,
       show_telegram: false,
       show_whatsapp: false,
-      email: angela.email,
-      name: angela.name,
-      username: angela.username,
-      avatar: 'seed-user-angela.jpg',
+      email: heloise.email,
+      name: heloise.name,
+      username: heloise.username,
+      avatar: 'seed-user-heloise.jpeg',
       orders_total: orders.reduce((accumulator, currentValue) => {
-        return currentValue.requester_id === angela.id
+        return currentValue.requester_id === heloise.id
           ? accumulator + 1
           : accumulator + 0;
       }, 0),
     });
 
-    const updatedKelly = await updateProfile.execute({
-      user_id: kelly.id,
+    const updatedAlexandre = await updateProfile.execute({
+      user_id: alexandre.id,
       presentation,
       address: 'R. Nossa Sra. da Glória, 101 - Solar da Mantiqueira',
       city: 'Tremembé',
       state: 'SP',
       phone: '12978362647',
       whatsapp: '12978362647',
-      telegram: kelly.username,
+      telegram: alexandre.username,
       show_email: true,
       show_phone: true,
       show_telegram: false,
       show_whatsapp: true,
-      email: kelly.email,
-      name: kelly.name,
-      username: kelly.username,
-      avatar: 'seed-user-kelly.jpg',
+      email: alexandre.email,
+      name: alexandre.name,
+      username: alexandre.username,
+      avatar: 'seed-user-alexandre.jpeg',
       orders_total: orders.reduce((accumulator, currentValue) => {
-        return currentValue.requester_id === kelly.id
+        return currentValue.requester_id === alexandre.id
           ? accumulator + 1
           : accumulator + 0;
       }, 0),
     });
 
-    const updatedKevin = await updateProfile.execute({
-      user_id: kevin.id,
+    const updatedMarcela = await updateProfile.execute({
+      user_id: marcela.id,
       presentation,
       address: 'Av. Antônio Cozzi, 831 - Jardim Res. Dr. Lessa',
       city: 'Pindamonhangaba',
       state: 'SP',
       phone: '12926548536',
       whatsapp: '12926548536',
-      telegram: kevin.username,
+      telegram: marcela.username,
       show_email: true,
       show_phone: true,
       show_telegram: true,
       show_whatsapp: false,
-      email: kevin.email,
-      name: kevin.name,
-      username: kevin.username,
-      avatar: 'seed-user-kevin.png',
+      email: marcela.email,
+      name: marcela.name,
+      username: marcela.username,
+      avatar: 'seed-user-marcela.jpeg',
       orders_total: orders.reduce((accumulator, currentValue) => {
-        return currentValue.requester_id === kevin.id
+        return currentValue.requester_id === marcela.id
           ? accumulator + 1
           : accumulator + 0;
       }, 0),
     });
 
-    const updatedStanley = await updateProfile.execute({
-      user_id: stanley.id,
+    const updatedLevi = await updateProfile.execute({
+      user_id: levi.id,
       presentation,
       address: 'R. Cap. Carlos de Moura, 116 - Vila Pantaleao',
       city: 'Caçapava',
       state: 'SP',
       phone: '12985743654',
       whatsapp: '12985743654',
-      telegram: stanley.username,
+      telegram: levi.username,
       show_email: true,
       show_phone: false,
       show_telegram: false,
       show_whatsapp: false,
-      email: stanley.email,
-      name: stanley.name,
-      username: stanley.username,
-      avatar: 'seed-user-stanley.jpg',
+      email: levi.email,
+      name: levi.name,
+      username: levi.username,
+      avatar: 'seed-user-levi.jpg',
       orders_total: orders.reduce((accumulator, currentValue) => {
-        return currentValue.requester_id === stanley.id
+        return currentValue.requester_id === levi.id
           ? accumulator + 1
           : accumulator + 0;
       }, 0),
     });
 
-    const updatedPhyllis = await updateProfile.execute({
-      user_id: phyllis.id,
+    const updatedBenicio = await updateProfile.execute({
+      user_id: benicio.id,
       presentation,
       address: 'R. Gisele Martins, 287 - Cidade Morumbi',
       city: 'São José dos Campos',
       state: 'SP',
       phone: '12936258574',
       whatsapp: '12936258574',
-      telegram: phyllis.username,
+      telegram: benicio.username,
       show_email: true,
       show_phone: true,
       show_telegram: true,
       show_whatsapp: true,
-      email: phyllis.email,
-      name: phyllis.name,
-      username: phyllis.username,
-      avatar: 'seed-user-phyllis.png',
+      email: benicio.email,
+      name: benicio.name,
+      username: benicio.username,
+      avatar: 'seed-user-benicio.jpeg',
       orders_total: orders.reduce((accumulator, currentValue) => {
-        return currentValue.requester_id === phyllis.id
+        return currentValue.requester_id === benicio.id
           ? accumulator + 1
           : accumulator + 0;
       }, 0),
     });
 
-    const updatedJim = await updateProfile.execute({
-      user_id: jim.id,
+    const updatedEmanuelly = await updateProfile.execute({
+      user_id: emanuelly.id,
       presentation,
       address: 'R. Timóteo, 156 - Bosque dos Eucaliptos',
       city: 'São José dos Campos',
       state: 'SP',
       phone: '12965789533',
       whatsapp: '12965789533',
-      telegram: jim.username,
+      telegram: emanuelly.username,
       show_email: true,
       show_phone: true,
       show_telegram: true,
       show_whatsapp: true,
-      email: jim.email,
-      name: jim.name,
-      username: jim.username,
-      avatar: 'seed-user-jim.jpeg',
+      email: emanuelly.email,
+      name: emanuelly.name,
+      username: emanuelly.username,
+      avatar: 'seed-user-emanuelly.jpeg',
       orders_total: orders.reduce((accumulator, currentValue) => {
-        return currentValue.requester_id === jim.id
+        return currentValue.requester_id === emanuelly.id
           ? accumulator + 1
           : accumulator + 0;
       }, 0),
     });
 
-    const updatedPam = await updateProfile.execute({
-      user_id: pam.id,
+    const updatedCesar = await updateProfile.execute({
+      user_id: cesar.id,
       presentation,
       address: 'R. Timóteo, 156 - Bosque dos Eucaliptos',
       city: 'São José dos Campos',
       state: 'SP',
       phone: '12965789533',
       whatsapp: '12965789533',
-      telegram: pam.username,
+      telegram: cesar.username,
       show_email: true,
       show_phone: true,
       show_telegram: false,
       show_whatsapp: false,
-      email: pam.email,
-      name: pam.name,
-      username: pam.username,
-      avatar: 'seed-user-pam.jpg',
+      email: cesar.email,
+      name: cesar.name,
+      username: cesar.username,
+      avatar: 'seed-user-cesar.jpeg',
       orders_total: orders.reduce((accumulator, currentValue) => {
-        return currentValue.requester_id === pam.id
+        return currentValue.requester_id === cesar.id
           ? accumulator + 1
           : accumulator + 0;
       }, 0),
     });
 
-    const updatedRyan = await updateProfile.execute({
-      user_id: ryan.id,
+    const updatedLuiz = await updateProfile.execute({
+      user_id: luiz.id,
       presentation,
       address: 'R. Prof. Job Aíres Dias, 338 - Centro',
       city: 'Jacareí',
       state: 'SP',
       phone: '12985774266',
       whatsapp: '12985774266',
-      telegram: ryan.username,
+      telegram: luiz.username,
       show_email: true,
       show_phone: true,
       show_telegram: true,
       show_whatsapp: true,
-      email: ryan.email,
-      name: ryan.name,
-      username: ryan.username,
-      avatar: 'seed-user-ryan.jpeg',
+      email: luiz.email,
+      name: luiz.name,
+      username: luiz.username,
+      avatar: 'seed-user-luiz.jpg',
       orders_total: orders.reduce((accumulator, currentValue) => {
-        return currentValue.requester_id === ryan.id
+        return currentValue.requester_id === luiz.id
           ? accumulator + 1
           : accumulator + 0;
       }, 0),
     });
 
     return [
-      updatedMichael,
-      updatedDwight,
-      updatedAngela,
-      updatedKelly,
-      updatedKevin,
-      updatedStanley,
-      updatedPhyllis,
-      updatedJim,
-      updatedPam,
-      updatedRyan,
+      updatedCecilia,
+      updatedNoah,
+      updatedHeloise,
+      updatedAlexandre,
+      updatedMarcela,
+      updatedLevi,
+      updatedBenicio,
+      updatedEmanuelly,
+      updatedCesar,
+      updatedLuiz,
     ];
   }
 }

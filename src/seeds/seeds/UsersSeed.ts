@@ -6,87 +6,87 @@ class UsersSeed {
   async execute(): Promise<User[]> {
     const createUser = container.resolve(CreateUserService);
 
-    const michael = await createUser.execute({
-      name: 'Michael Scott',
-      username: 'mikescott',
-      email: 'michael@email.com',
+    const cecilia = await createUser.execute({
+      name: 'Cecília Paz',
+      username: 'ceciliapaz',
+      email: 'cecilia@email.com',
       password: '123456',
     });
 
-    const dwight = await createUser.execute({
-      name: 'Dwight Schrute',
-      username: 'dwightschrute',
-      email: 'dwight@email.com',
+    const noah = await createUser.execute({
+      name: 'Noah Nunes',
+      username: 'noahnunes',
+      email: 'noah@email.com',
       password: '123456',
     });
 
-    const angela = await createUser.execute({
-      name: 'Angela Martin',
-      username: 'angelamartin',
-      email: 'angela@email.com',
+    const heloise = await createUser.execute({
+      name: 'Heloise Luiza',
+      username: 'heloluiza',
+      email: 'heloisa@email.com',
       password: '123456',
     });
 
-    const kelly = await createUser.execute({
-      name: 'Kelly Kappor',
-      username: 'prettykelly',
-      email: 'kelly@email.com',
+    const alexandre = await createUser.execute({
+      name: 'Alexandre Salgado',
+      username: 'alexandresalgado',
+      email: 'alexandre@email.com',
       password: '123456',
     });
 
-    const kevin = await createUser.execute({
-      name: 'Kevin Malone',
-      username: 'kevinmm',
-      email: 'kevin@email.com',
+    const marcela = await createUser.execute({
+      name: 'Marcela Alves',
+      username: 'marcelaalvez',
+      email: 'marcela@email.com',
       password: '123456',
     });
 
-    const stanley = await createUser.execute({
-      name: 'Stanley Hudson',
-      username: 'pretzelday',
-      email: 'stanley@email.com',
+    const levi = await createUser.execute({
+      name: 'Levi Dias',
+      username: 'levidias',
+      email: 'levi@email.com',
       password: '123456',
     });
 
-    const phyllis = await createUser.execute({
-      name: 'Phyllis Vance',
-      username: 'phyllis',
-      email: 'phyllis@email.com',
+    const benicio = await createUser.execute({
+      name: 'Benício Baptista',
+      username: 'beniciobaptista',
+      email: 'benicio@email.com',
       password: '123456',
     });
 
-    const jim = await createUser.execute({
-      name: 'Jim Halpert',
-      username: 'jimmy',
-      email: 'jim@email.com',
+    const emanuelly = await createUser.execute({
+      name: 'Emanuelly Fernanda',
+      username: 'emanuellyfernanda',
+      email: 'emanuelly@email.com',
       password: '123456',
     });
 
-    const pam = await createUser.execute({
-      name: 'Pam Beesly',
-      username: 'pammy',
-      email: 'pam@email.com',
+    const cesar = await createUser.execute({
+      name: 'César Bernardes',
+      username: 'cesarbernardes',
+      email: 'cesar@email.com',
       password: '123456',
     });
 
-    const ryan = await createUser.execute({
-      name: 'Ryan Howard',
-      username: 'ryanh',
-      email: 'ryan@email.com',
+    const luiz = await createUser.execute({
+      name: 'Luiz Kevin Lopes',
+      username: 'luizkevin',
+      email: 'luiz@email.com',
       password: '123456',
     });
 
     return [
-      michael,
-      dwight,
-      angela,
-      kelly,
-      kevin,
-      stanley,
-      phyllis,
-      jim,
-      pam,
-      ryan,
+      cecilia,
+      noah,
+      heloise,
+      alexandre,
+      marcela,
+      levi,
+      benicio,
+      emanuelly,
+      cesar,
+      luiz,
     ];
   }
 }
