@@ -9,8 +9,8 @@
   <ul>
     <li><a href="#group-members">Group members</a></li>
     <li><a href="#main-libraries-used">Main libraries used</a></li>
-    <li><a href="#main-libraries-used">How to run this projetct</a></li>
-    <li><a href="#how-to-run">Thanks</a></li>
+    <li><a href="#how-to-run">How to run this projetct</a></li>
+    <li><a href="#thanks">Thanks</a></li>
   </ul>
   <br>
   <h2 id="group-members">Group members</h2>
