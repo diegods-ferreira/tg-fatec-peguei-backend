@@ -89,6 +89,21 @@
         <td>3.1.1</td>
         <td>The socket.io library is responsible for managing the websocket connection between the API and the front-end client and it is used in the chats module</td>
       </tr>
+      <tr>
+        <td>bcryptjs</td>
+        <td>2.4.3</td>
+        <td>bcryptjs was used to encrypt user passwords as they are written to the database</td>
+      </tr>
+      <tr>
+        <td>nodemailer</td>
+        <td>6.4.14</td>
+        <td>Used to send emails so the users can recover their password</td>
+      </tr>
+      <tr>
+        <td>celebrate</td>
+        <td>13.0.3</td>
+        <td>This library is responsible for the data validation when the API receives a request from the client</td>
+      </tr>
     </tbody>
   </table>
   <br>
