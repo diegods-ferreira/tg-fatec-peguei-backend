@@ -95,8 +95,7 @@
   <br>
   <h2 id="how-to-run">How to run this project</h2>
   <ol>
-    <li>First, you will need to install all the requirements on your computer. So you need no install <strong>Node.js, Insomnia (or similar), PostgreSQL, MongoDB and Redis</strong></li>
-    <li>Install the global node dependency called Yarn by running the commando <strong><code>npm install -g yarn</code></strong></li>
+    <li>First, you will need to install all the requirements on your computer. So you need no install <strong>Node.js, Yarn, Insomnia (or similar), PostgreSQL, MongoDB and Redis</strong></li>
     <li>Then, you need to clone this repository and inside of it, run the command <strong><code>yarn</code></strong></li>
     <li>You will also need to create the postgres database called <strong><code>tg_peguei</code></strong></li>
     <li>After creating the database, we need to run the migrations to create all the tables, columns and relations by runnig the command <strong><code>yarn typeorm migration:run</code></strong></li>
