@@ -7,3 +7,4 @@ tmp/uploads/*
 !tmp/uploads/seed-*.jpeg
 !tmp/uploads/seed-*.png
 !tmp/uploads/seed-*.pdf
+.env
