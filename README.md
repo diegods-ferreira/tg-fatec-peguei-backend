@@ -25,8 +25,8 @@ As the entire ecosystem around this stack is quite vast, full of libraries ready
 |**Library Name**|**Version**|**What it was use for?**|
 | :-: | :-: | :-: |
 |typescript|3.8.3|It was used so that we could work with data typing and thus avoid problems as the project grows|
-|eslint|6.8.0|They were used to enforce code style and design pattern|
-|prettier|2.1.2||
+|eslint|6.8.0|Used to enforce code style and design pattern|
+|prettier|2.1.2|Used to enforce code style and design pattern|
 |typeorm|0.2.28|These libraries were used to manage the connection to all the databases used by this application|
 |pg|8.4.1|Library used to manage the PostgreSQL database|
 |mongodb|3.6.2|Library used to manage the MongoDB database|
