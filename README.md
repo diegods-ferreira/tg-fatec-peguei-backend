@@ -12,8 +12,8 @@
 Since the TG (acronym for *"Graduation Work"*, in Portuguese) can be developed by groups with up to 3 members, we decided to come together to develop the application proposed in our work. Thus, our group consists of: 
 
 
-|**Member name**|**Main responsibility**|
-| :-: | :-: |
+|Member name|Main responsibility|
+| :-: | - |
 |[Danilo Ferreira](https://github.com/danilo-dsf)|Architect, structure and develop the application back-end|
 |[Diego Ferreira](https://github.com/diegods-ferreira)|Design, architect and develop the mobile front end of the application|
 
